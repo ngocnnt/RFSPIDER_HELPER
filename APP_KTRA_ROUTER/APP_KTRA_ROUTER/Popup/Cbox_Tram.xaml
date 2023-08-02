@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"               
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="APP_KTRA_ROUTER.Popup.Cbox_Tram">
+    <ContentPage.Content>
+        <StackLayout HorizontalOptions="FillAndExpand" Spacing="0" Padding="0,20,0,0">
+            <Grid ColumnDefinitions="9*,1*" RowDefinitions="30" >
+                <SearchBar Grid.Column="0" HorizontalOptions="FillAndExpand" 
+                       x:Name="search" 
+                       Placeholder="Chọn trạm cần tìm"
+                       HeightRequest="30"
+                       TextChanged="search_TextChanged"
+                       
+                       ></SearchBar>
+                <Image Grid.Column="1"  x:Name="imgClose" Source="close.png" Aspect="AspectFit" HorizontalOptions="End"  VerticalOptions="Center" HeightRequest="30" WidthRequest="30">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped">
+
+                        </TapGestureRecognizer>
+                    </Image.GestureRecognizers>
+
+                </Image>
+            </Grid>
+
+            <ScrollView Orientation="Horizontal">
+                <StackLayout>
+                    <ListView x:Name="listViewTram"   
+                              ItemsSource="{Binding _ListTram}"
+                      HasUnevenRows="True"
+                      HorizontalOptions="FillAndExpand"       
+                      VerticalOptions="FillAndExpand"
+                      ItemSelected="listViewTram_ItemSelected"
+                      CachingStrategy="RecycleElement">
+
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <ViewCell.View >
+                                        <Label Text="{Binding TEN_TRAM}" Padding="10" TextColor="#149C62" FontSize="18" HorizontalTextAlignment="Start"></Label>
+                                    </ViewCell.View>
+                                </ViewCell>
+
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </ScrollView>
+
+        </StackLayout>
+    </ContentPage.Content>
+
+</ContentPage>

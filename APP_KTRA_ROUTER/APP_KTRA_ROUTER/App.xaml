@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:sfcombox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
+             xmlns:sfinputText="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+              xmlns:sfDatagrid="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms"
+             mc:Ignorable="d"
+             x:Class="APP_KTRA_ROUTER.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <Style TargetType="sfcombox:SfComboBox" x:Key="styleCombobox">
+                <Setter Property="TextColor" Value="#0F8523"></Setter>                
+                <Setter Property="ShowClearButton" Value="True"></Setter>
+                <Setter Property="BorderColor" Value="#1976d2"></Setter>
+                <!--<Setter Property="BorderColor" Value="White"></Setter>-->
+                <Setter Property="TextSize" Value="18"></Setter>
+                <Setter Property="FontFamily" Value="Tahoma"></Setter>
+                <Setter Property="SuggestionMode" Value="Contains"></Setter>
+                <Setter Property="MultiSelectMode" Value="None"></Setter>
+                <Setter Property="NoResultsFoundTextColor" Value="Red"></Setter>
+                <Setter Property="HighlightedTextColor" Value="Red"></Setter>               
+                <Setter Property="AllowFiltering" Value="True"></Setter>
+                <Setter Property="ClearButtonColor" Value="Red"></Setter>
+                <Setter Property="WatermarkColor" Value="Gray"></Setter>
+                <Setter Property="HeightRequest" Value="{OnIdiom Phone = '50' , Tablet='100'}" />
+            </Style>
+            <Color x:Key="Primary">#0c832f</Color>
+            <Style TargetType="SearchBar" x:Key="styleSearch">
+                <Setter Property="TextColor" Value="#0F8523"></Setter>                
+                <Setter Property="FontSize" Value="16"></Setter>
+                <Setter Property="FontFamily" Value="Times New Roman"></Setter>                
+            </Style>           
+            <Style TargetType="sfinputText:SfTextInputLayout" x:Key="styleInputText">
+                <Setter Property="ContainerType" Value="Outlined"></Setter>                
+            </Style>
+            <Style TargetType="Entry" x:Key="styleEntry">
+                <Setter Property="TextColor" Value="#0F8523"></Setter>
+                <Setter Property="FontSize" Value="16"></Setter>
+                <Setter Property="FontFamily" Value="Times New Roman"></Setter>
+            </Style>
+
+            <Style TargetType="Page" x:Key="ParentBackgroup">
+                <Setter Property="BackgroundImageSource" Value="hinhnen1.png"></Setter>
+                <Setter Property="Opacity" Value="2"></Setter>              
+                
+            </Style>
+            <Style TargetType="Shell" x:Key="ParentSell">
+                <Setter Property="BackgroundImageSource" Value="hinhnen.png"></Setter>
+                <Setter Property="Opacity" Value="2"></Setter>
+
+            </Style>
+            <Style TargetType="sfDatagrid:SfDataGrid" x:Key="styleDataGrid">
+                <Setter Property="CanUseViewFilter" Value="True"></Setter>
+                <Setter Property="AllowSorting" Value="True"></Setter>
+                <Setter Property="AllowDraggingRow" Value="True"></Setter>
+                <Setter Property="AllowDraggingColumn" Value="True"></Setter>
+                <Setter Property="SelectionMode" Value="Single"></Setter>
+                <Setter Property="AutoExpandGroups" Value="True"></Setter>
+                <Setter Property="AllowTriStateSorting" Value="True"></Setter>
+                <Setter Property="AllowDiagonalScrolling" Value="True"></Setter>
+                <Setter Property="VerticalOverScrollMode" Value="None"></Setter> 
+            </Style>
+            <Style TargetType="Label" x:Key="styleLable">
+                <Setter Property="FontFamily" Value="Arial"/>
+                <Setter Property="LineBreakMode" Value="WordWrap"/>
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+            </Style>
+            <Style TargetType="Label" x:Key="styleLableGreen">
+                <Setter Property="FontFamily" Value="Arial"/>
+                <Setter Property="TextColor" Value="{StaticResource Primary}"/>
+                <Setter Property="LineBreakMode" Value="WordWrap"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ListCollection="clr-namespace:System.Collections.Generic;assembly=netstandard"
+             xmlns:sfbutton="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms" 
+             xmlns:sfcombox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms" 
+             xmlns:sfinputtext="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+             xmlns:local="clr-namespace:APP_KTRA_ROUTER.ViewModels" xmlns:local1="clr-namespace:APP_KTRA_ROUTER.Views"
+             mc:Ignorable="d"
+             BackgroundColor="White"
+             Style="{StaticResource ParentBackgroup}"
+             Title="Treo tháo DCU, Router"
+             x:Class="APP_KTRA_ROUTER.Views.TreothaoDcuRouter">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local1:Dark x:Key="dark" />
+        </ResourceDictionary>
+
+    </ContentPage.Resources>
+    <ContentPage.BindingContext>
+        <local:TreoThaoDcuRouterViewModel></local:TreoThaoDcuRouterViewModel>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+
+        <StackLayout BackgroundColor="White">
+            <Grid x:Name="myGrid" RowDefinitions="50,50,50,50,50,50,50,50,50,50" BackgroundColor="White">
+                <sfcombox:SfComboBox  x:Name="cbThaoTac" Watermark="Chọn Lắp mới/Thay thế/Tháo" WatermarkColor="Gray"                                   
+                             Grid.Row="0"
+                             HeightRequest="50"
+                             DataSource="{Binding ThaoTacs , Mode=TwoWay}"                            
+                             HorizontalOptions="FillAndExpand"
+                             DisplayMemberPath="TEN_THAO_TAC"
+                             Style="{StaticResource styleCombobox}"
+                             SelectedItem="{Binding SelectItemThaoTac}"
+                             SelectionChanged="cbThaoTac_SelectionChanged">
+                </sfcombox:SfComboBox>
+                <sfcombox:SfComboBox  x:Name="cbLoaiThietBi" Watermark="Chọn DCU/Router" WatermarkColor="Gray"                                   
+                             Grid.Row="1"
+                             HeightRequest="50"
+                             HorizontalOptions="FillAndExpand"
+                             Style="{StaticResource styleCombobox}"
+                             SelectedItem="{Binding SelectItemLoaiThietBi}" 
+                             SelectionChanged="cbLoaiThietBi_SelectionChanged">
+                    <sfcombox:SfComboBox.ComboBoxSource>
+                        <ListCollection:List x:TypeArguments="x:String">
+                            <x:String>DCU</x:String>
+                            <x:String>Router</x:String>
+                        </ListCollection:List>
+                    </sfcombox:SfComboBox.ComboBoxSource>
+                </sfcombox:SfComboBox>
+                <sfcombox:SfComboBox  x:Name="cbLoaiTram" Watermark="Chọn trạm chuyên dùng/công cộng" WatermarkColor="Gray" IsVisible="false"                              
+                             Grid.Row="2"  
+                             HeightRequest="50"                         
+                             HorizontalOptions="FillAndExpand"
+                             Style="{StaticResource styleCombobox}"
+                             SelectedItem="{Binding SelectItemTramCCCD}"
+                             SelectionChanged="cbLoaiTram_SelectionChanged">
+                    <sfcombox:SfComboBox.ComboBoxSource>
+                        <ListCollection:List x:TypeArguments="x:String">
+                            <x:String>Chuyên dùng</x:String>
+                            <x:String>Công cộng</x:String>
+                        </ListCollection:List>
+                    </sfcombox:SfComboBox.ComboBoxSource>
+                </sfcombox:SfComboBox>
+                <sfcombox:SfComboBox  x:Name="cbDienLuc" Watermark="Chọn Điện Lực" WatermarkColor="Gray" IsVisible="false"
+                             Grid.Row="3"
+                             HeightRequest="50"
+                             DataSource="{Binding DonVis , Mode=TwoWay}"                            
+                             HorizontalOptions="FillAndExpand"                              
+                             NoResultsFoundText="Không tìm thấy điện lực này" 
+                             DisplayMemberPath="TEN_DON_VI" 
+                             Style="{StaticResource styleCombobox}"
+                             SelectedItem="{Binding SelectItemDonVi}" 
+                             SelectionChanged="cbDienLuc_SelectionChanged">
+                </sfcombox:SfComboBox>
+                <sfcombox:SfComboBox  x:Name="cbTram" Watermark="Chọn Trạm" WatermarkColor="Gray" IsVisible="false"
+                             Grid.Row="4"
+                             HeightRequest="50"
+                             DataSource="{Binding Trams, Mode=TwoWay}"
+                             SelectedItem="{Binding SelectItemTram}"
+                             HorizontalOptions="FillAndExpand" 
+                             NoResultsFoundText="Không tìm thấy trạm này" 
+                             DisplayMemberPath="TEN_TRAM"               
+                                      IsEditableMode="True"
+                             Style="{StaticResource styleCombobox}"
+                             />
+
+                <sfinputtext:SfTextInputLayout Hint="ID" x:Name="IdLapMoi" IsVisible="false"
+                                               Grid.Row="5"
+                                               HeightRequest="50" 
+                                               LeadingViewPosition="Inside"
+                                               ContainerType="Filled">
+                    <Entry HorizontalOptions="FillAndExpand"   x:Name="IdLapMoiText"
+                           Style="{StaticResource styleSearch}"
+                           />
+
+                    <sfinputtext:SfTextInputLayout.TrailingView>
+                        <sfbutton:SfButton Text="Quét" x:Name="scanIdLapMoiBtn" Clicked="scanIdLapMoiBtn_ClickedAsync" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                               FontAttributes="Bold"
+                               CornerRadius="3"
+                               FontSize="24"
+                               HeightRequest="50" WidthRequest="100"
+                               BackgroundColor="#149C62"
+                               >
+                        </sfbutton:SfButton>
+                    </sfinputtext:SfTextInputLayout.TrailingView>
+                </sfinputtext:SfTextInputLayout>
+                <sfinputtext:SfTextInputLayout  x:Name="txtMaLo" Hint="Mã lộ"                                
+                             Grid.Row="6" IsVisible="false"
+                             HeightRequest="50"         
+                             HorizontalOptions="FillAndExpand">
+                    <Entry HorizontalOptions="FillAndExpand" x:Name="MaLoText"
+                           Style="{StaticResource styleSearch}"
+                           />
+                </sfinputtext:SfTextInputLayout>
+                <sfinputtext:SfTextInputLayout  x:Name="txtMaTru" Hint="Mã trụ"                                
+                             Grid.Row="7" IsVisible="false"
+                             HeightRequest="50"         
+                             HorizontalOptions="FillAndExpand">
+                    <Entry HorizontalOptions="FillAndExpand" x:Name="MaTruText"
+                           Style="{StaticResource styleSearch}"
+                           />
+                </sfinputtext:SfTextInputLayout>
+                <sfinputtext:SfTextInputLayout  x:Name="txtMoTa" Hint="Mô tả"                                
+                             Grid.Row="8" IsVisible="false"
+                             HeightRequest="50"         
+                             HorizontalOptions="FillAndExpand">
+                    <Entry HorizontalOptions="FillAndExpand" x:Name="MoTaText"
+                           Style="{StaticResource styleSearch}"
+                           />
+                </sfinputtext:SfTextInputLayout>
+                <!--<sfinputtext:SfTextInputLayout IsVisible="true" x:Name="btnLapMoiInput"
+                                               Grid.Row="7" WidthRequest="300"
+                                               HeightRequest="50" 
+                                               LeadingViewPosition="Inside"
+                                               ContainerType="Filled">
+                    <Entry HorizontalOptions="FillAndExpand"
+                           Style="{StaticResource styleSearch}"
+                           />
+                    <sfinputtext:SfTextInputLayout.TrailingView>
+                        <sfbutton:SfButton Text="Thay thế" x:Name="btnLapMoi" Clicked="btnLapMoi_Clicked" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                               FontAttributes="Bold"
+                               CornerRadius="60"
+                               FontSize="24"
+                               HeightRequest="50" WidthRequest="300"
+                               BackgroundColor="#149C62"
+                               >
+                        </sfbutton:SfButton>
+                    </sfinputtext:SfTextInputLayout.TrailingView>
+                </sfinputtext:SfTextInputLayout>-->
+
+                <StackLayout Grid.Row="10" VerticalOptions="Fill" Padding="10,5,10,5">
+                    <sfbutton:SfButton Text="Khai báo" x:Name="btnLapMoi" IsVisible="false"
+                    CornerRadius="60"                   
+                    BackgroundColor="ForestGreen"                   
+                    Clicked="btnLapMoi_Clicked"
+                    TextColor="White"
+                    FontSize="Large"/>
+                </StackLayout>
+                <sfcombox:SfComboBox  x:Name="cbBienDong" Watermark="Biến động DCU/Router" WatermarkColor="Gray"                                   
+                             Grid.Row="2"
+                             HeightRequest="50"
+                             HorizontalOptions="FillAndExpand"
+                             Style="{StaticResource styleCombobox}">
+                    <sfcombox:SfComboBox.ComboBoxSource>
+                        <ListCollection:List x:TypeArguments="x:String">
+                            <x:String>Tháo</x:String>
+                            <x:String>Hỏng</x:String>
+                        </ListCollection:List>
+                    </sfcombox:SfComboBox.ComboBoxSource>
+                </sfcombox:SfComboBox>
+                <sfinputtext:SfTextInputLayout  x:Name="txtMoTaThayThe" Hint="Mô tả"                                
+                             Grid.Row="3" IsVisible="false"
+                             HeightRequest="50"         
+                             HorizontalOptions="FillAndExpand">
+                    <Entry HorizontalOptions="FillAndExpand" x:Name="MoTaThayTheText"
+                           Style="{StaticResource styleSearch}"
+                           />
+                </sfinputtext:SfTextInputLayout>
+                <sfinputtext:SfTextInputLayout Hint="ID Cũ" x:Name="IdCu" IsVisible="false"
+                                               Grid.Row="4"
+                                               HeightRequest="50" 
+                                               LeadingViewPosition="Inside"
+                                               ContainerType="Filled">
+                    <Entry HorizontalOptions="FillAndExpand"   x:Name="IdCuText"
+                           Style="{StaticResource styleSearch}"
+                           />
+                    <sfinputtext:SfTextInputLayout.TrailingView>
+                        <sfbutton:SfButton Text="Quét" x:Name="scanIdCuBtn" Clicked="scanIdCuBtn_ClickedAsync" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                               FontAttributes="Bold"
+                               CornerRadius="3"
+                               FontSize="24"
+                               HeightRequest="50" WidthRequest="100"
+                               BackgroundColor="#149C62"
+                               >
+                        </sfbutton:SfButton>
+                    </sfinputtext:SfTextInputLayout.TrailingView>
+                </sfinputtext:SfTextInputLayout>
+                <sfinputtext:SfTextInputLayout Hint="ID mới" x:Name="IdMoi"  IsVisible="false"
+                                               Grid.Row="5"
+                                               HeightRequest="50" 
+                                               LeadingViewPosition="Inside"
+                                               ContainerType="Filled">
+                    <Entry HorizontalOptions="FillAndExpand"   x:Name="IdMoiText"
+                           Style="{StaticResource styleSearch}"
+                           />
+                    <sfinputtext:SfTextInputLayout.TrailingView>
+                        <sfbutton:SfButton Text="Quét" x:Name="scanIdMoiBtn" Clicked="scanIdMoiBtn_ClickedAsync" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                               FontAttributes="Bold"
+                               CornerRadius="3"
+                               FontSize="24"
+                               HeightRequest="50" WidthRequest="100"
+                               BackgroundColor="#149C62"
+                               >
+                        </sfbutton:SfButton>
+                    </sfinputtext:SfTextInputLayout.TrailingView>
+                </sfinputtext:SfTextInputLayout>
+
+
+                <StackLayout Grid.Row="11" VerticalOptions="Fill" Padding="10,5,10,5">
+                    <sfbutton:SfButton Text="Thay thế" x:Name="btnThayThe" IsVisible="false"
+                    CornerRadius="60"
+                    BackgroundColor="ForestGreen"                   
+                    Clicked="btnThayThe_Clicked"
+                    TextColor="White"
+                    FontSize="Large"/>
+                </StackLayout>
+
+                <sfinputtext:SfTextInputLayout  x:Name="cbLyDoThao" Hint="Mô tả"                                
+                             Grid.Row="2" IsVisible="false"
+                             HeightRequest="50"         
+                             HorizontalOptions="FillAndExpand">
+                    <Entry HorizontalOptions="FillAndExpand" x:Name="LyDoThaoText"
+                           Style="{StaticResource styleSearch}"
+                           />
+                </sfinputtext:SfTextInputLayout>
+                <sfinputtext:SfTextInputLayout Hint="ID" x:Name="IdThao" IsVisible="false"
+                                               Grid.Row="3"
+                                               HeightRequest="50" 
+                                               TrailingViewPosition="Inside"
+                                               ContainerType="Filled">
+                    <Entry HorizontalOptions="FillAndExpand" x:Name="IdThaoText"
+                           Style="{StaticResource styleSearch}"
+                           />
+                    <sfinputtext:SfTextInputLayout.TrailingView>
+                        <sfbutton:SfButton Text="Quét" x:Name="scanIdThaoBtn" Clicked="scanIdThaoBtn_ClickedAsync" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                               FontAttributes="Bold"
+                               CornerRadius="3"
+                               FontSize="24"
+                               HeightRequest="50" WidthRequest="100"
+                               BackgroundColor="#149C62"
+                               >
+                        </sfbutton:SfButton>
+                    </sfinputtext:SfTextInputLayout.TrailingView>
+                </sfinputtext:SfTextInputLayout>
+                <StackLayout Grid.Row="9" VerticalOptions="Fill" Padding="10,5,10,5">
+                    <sfbutton:SfButton Text="Tháo" x:Name="btnThao" IsVisible="false"
+                    CornerRadius="60"                   
+                    BackgroundColor="ForestGreen"                   
+                    Clicked="btnThao_Clicked"
+                    TextColor="White"
+                    FontSize="Large"/>
+                </StackLayout>
+            </Grid>
+        </StackLayout>
+        
+        
+        
+    </ContentPage.Content>
+</ContentPage>

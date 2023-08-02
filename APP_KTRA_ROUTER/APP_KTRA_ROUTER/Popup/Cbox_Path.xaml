@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" 
+              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup" 
+              xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="APP_KTRA_ROUTER.Popup.Cbox_Path">
+    <pages:PopupPage.Animation>
+        <animations:MoveAnimation 
+            PositionIn="Center" 
+            PositionOut="Center">
+        </animations:MoveAnimation>
+    </pages:PopupPage.Animation>
+    <Frame CornerRadius="15"
+           OutlineColor="Black"    
+          HeightRequest="300"
+           HorizontalOptions="Center"
+           VerticalOptions="Center">
+        
+        <StackLayout HorizontalOptions="FillAndExpand">          
+            
+            <ScrollView Orientation="Horizontal">
+                <StackLayout>
+                    <Label Text="ĐƯỜNG DẪN ĐỌC DỮ LIỆU"   FontSize="14" FontAttributes="Bold" HorizontalTextAlignment="Center" ></Label>
+                    <ListView x:Name="listViewPath"
+                      ItemsSource="{Binding _ListPath}"
+                      HasUnevenRows="True"
+                      HorizontalOptions="FillAndExpand"       
+                      VerticalOptions="FillAndExpand"
+                      ItemSelected="listTram_ItemSelected"
+                      CachingStrategy="RecycleElement">
+
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <ViewCell.View >
+                                        <Grid ColumnDefinitions="*" HorizontalOptions="FillAndExpand" RowSpacing="5" Padding="0,5,0,5">
+                                            <Label Text="{Binding SPIDER_PATH}" Grid.Column="0" TextColor="#149C62" FontSize="18" HorizontalTextAlignment="Start"></Label>
+                                                                                     
+                                        </Grid>
+                                    </ViewCell.View>
+                                </ViewCell>
+
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>                
+            </ScrollView>          
+
+        </StackLayout>
+    </Frame>
+</pages:PopupPage>

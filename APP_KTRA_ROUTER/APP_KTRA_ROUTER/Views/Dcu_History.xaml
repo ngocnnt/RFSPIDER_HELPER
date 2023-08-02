@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:sfDataGrid ="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms"   
+             xmlns:sfbutton="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             xmlns:sfinputtext="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+             xmlns:sfcombox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
+             xmlns:local1="clr-namespace:APP_KTRA_ROUTER.Views"
+              xmlns:local="clr-namespace:APP_KTRA_ROUTER.ViewModels"
+             Title="Tra cứu lịch sử thiết bị"
+             x:Class="APP_KTRA_ROUTER.Views.Dcu_History">
+   
+    <ContentPage.Resources>        
+        <ResourceDictionary>
+            <local1:Dark x:Key="dark" />
+        </ResourceDictionary>
+        
+    </ContentPage.Resources>
+    <ContentPage.BindingContext>
+        <local:Dcu_HistoryViewModel></local:Dcu_HistoryViewModel>
+    </ContentPage.BindingContext>    
+    <ContentPage.Content>
+
+        <StackLayout>
+            <Grid RowDefinitions="40,40,50">
+                <sfcombox:SfComboBox  x:Name="cbDienLuc" Watermark="Chọn Điện Lực" WatermarkColor="Gray"                                   
+                             Grid.Row="0"
+                             DataSource="{Binding DonVis , Mode=TwoWay}"                            
+                             HorizontalOptions="FillAndExpand"                              
+                             NoResultsFoundText="Không tìm thấy điện lực này" 
+                             DisplayMemberPath="TEN_DON_VI" 
+                             Style="{StaticResource styleCombobox}"
+                             SelectedItem="{Binding SelectItemDonVi}" >
+                </sfcombox:SfComboBox>
+                <sfcombox:SfComboBox  x:Name="cbTram" Watermark="Chọn Trạm" WatermarkColor="Gray"  
+                             Grid.Row="1"
+                             DataSource="{Binding Trams, Mode=TwoWay}"
+                             SelectedItem="{Binding SelectItemTram}"
+                             HorizontalOptions="FillAndExpand" 
+                             NoResultsFoundText="Không tìm thấy trạm này" 
+                             DisplayMemberPath="TEN_TRAM"               
+                                      IsEditableMode="True"
+                             Style="{StaticResource styleCombobox}"
+                             />
+                <sfinputtext:SfTextInputLayout Hint="Nhập số serial để tìm" 
+                                               Grid.Row="2"
+                                                HeightRequest="50" 
+                                               LeadingViewPosition="Inside"
+                                               ContainerType="Outlined">
+                    <Entry x:Name="search" HorizontalOptions="FillAndExpand"  
+                           Style="{StaticResource styleSearch}"
+                           TextChanged="SearchBar_TextChanged"/>
+                    <sfinputtext:SfTextInputLayout.LeadingView>
+                        <Image Source="search.png"></Image>
+                    </sfinputtext:SfTextInputLayout.LeadingView>
+                </sfinputtext:SfTextInputLayout>
+                
+            </Grid>      
+
+            <sfDataGrid:SfDataGrid x:Name="listviewDCU"
+                          ScrollingMode="PixelLine"
+                          ItemsSource="{Binding LstDcuRouter}"
+                          SelectedItem="{Binding SelectItemPath}"
+                          AutoGenerateColumns="False"
+                          GridStyle="{StaticResource dark}"
+                           AllowSorting="True"
+                           AllowDraggingRow="True"
+                           AllowMultiSorting="True"
+                           AllowDraggingColumn="True"                          
+                           SelectionMode="Single"                          
+                           ColumnSizer="Auto"               
+                           AllowGroupExpandCollapse="True"
+                           AutoExpandGroups="False"
+                           AllowTriStateSorting="True"
+                           AllowDiagonalScrolling="True"
+                           VerticalOverScrollMode="None">
+                <sfDataGrid:SfDataGrid.Columns>
+
+                    <sfDataGrid:GridTextColumn MappingName="Type" HeaderText="LOẠI" HeaderFontAttribute="Bold" Width="60"   HeaderCellTextSize="16">                        
+                        <sfDataGrid:GridTextColumn.CellStyle>
+                            <Style TargetType="sfDataGrid:GridCell">
+                                <Setter Property="Foreground" Value="Red" />                                
+                            </Style>
+                        </sfDataGrid:GridTextColumn.CellStyle>
+                    </sfDataGrid:GridTextColumn>
+                    
+                    <sfDataGrid:GridTemplateColumn  MappingName="DcuID" HeaderText="SỐ SERY"  HeaderFontAttribute="Bold"  HeaderCellTextSize="16">                        
+                        <sfDataGrid:GridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Text="{Binding DcuID}"  FontAttributes="Bold" Padding="5,0,0,0" WidthRequest="80"   XAlign="Start" YAlign="Center" />
+                            </DataTemplate>
+                        </sfDataGrid:GridTemplateColumn.CellTemplate>
+                    </sfDataGrid:GridTemplateColumn>
+                    
+                    <sfDataGrid:GridTemplateColumn  MappingName="MO_TA" HeaderText="MÔ TẢ"  HeaderFontAttribute="Bold" Width="200" HeaderCellTextSize="16">
+                        <sfDataGrid:GridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Text="{Binding MO_TA}"  FontAttributes="Bold" Padding="5,0,0,0"   XAlign="Start" YAlign="Center" />
+                            </DataTemplate>
+                        </sfDataGrid:GridTemplateColumn.CellTemplate>
+                    </sfDataGrid:GridTemplateColumn>
+                    
+                    <sfDataGrid:GridTextColumn  HeaderText="NGÀY BIẾN ĐỘNG"                                                 
+                                                MappingName="NGAY_BDONG" 
+                                                HeaderFontAttribute="Bold" 
+                                                HeaderCellTextSize="16" 
+                                                Format="dd/MM/yyyy"/>
+                    
+                    <sfDataGrid:GridTextColumn  HeaderText="LẦN THAY" 
+                                                ColumnSizer="Auto" 
+                                                MappingName="LAN" 
+                                                HeaderFontAttribute="Bold" 
+                                                HeaderCellTextSize="16"/>
+
+                    <sfDataGrid:GridTemplateColumn MappingName="MA_BDONG" 
+                                                   Width="100"
+                                                   HeaderText="MÃ B.ĐỘNG" 
+                                                   HeaderFontAttribute="Bold" 
+                                                   HeaderCellTextSize="16">
+                        <sfDataGrid:GridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Text="{Binding MA_BDONG}" TextColor="Black" Padding="5,0,0,0" WidthRequest="120"   XAlign="Start" YAlign="Center" />
+                            </DataTemplate>
+                        </sfDataGrid:GridTemplateColumn.CellTemplate>                        
+                    </sfDataGrid:GridTemplateColumn>                    
+                </sfDataGrid:SfDataGrid.Columns>
+                
+               
+                <sfDataGrid:SfDataGrid.GroupColumnDescriptions>
+                    <sfDataGrid:GroupColumnDescription ColumnName="Type" />                   
+                </sfDataGrid:SfDataGrid.GroupColumnDescriptions>
+               
+            </sfDataGrid:SfDataGrid>         
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="APP_KTRA_ROUTER.Views.CongTo_Check"
+             xmlns:sfbutton="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             xmlns:sfinputtext="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+             xmlns:local1="clr-namespace:APP_KTRA_ROUTER.Converter" xmlns:sfcombox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
+              xmlns:ListCollection="clr-namespace:System.Collections.Generic;assembly=netstandard"
+             >
+    <ContentPage.Resources>
+        <local1:ConverterSongRF x:Key="convertRSSI"></local1:ConverterSongRF>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout >
+            <sfcombox:SfComboBox x:Name="cbPath"   Watermark="Chọn đường dẫn để kiểm tra" WatermarkColor="Gray"                        
+                            
+                             HorizontalOptions="FillAndExpand" 
+                             NoResultsFoundText="Không tìm thấy đường dẫn" 
+                             DisplayMemberPath="SPIDER_PATH" 
+                             ClearButtonColor="Red"                                     
+                             Style="{StaticResource styleCombobox}"
+                                 IsEditableMode="True"
+                             />
+            <sfcombox:SfComboBox x:Name="cbChungLoai"   Watermark="Chọn chủng loại" WatermarkColor="Gray"  
+                                  HorizontalOptions="FillAndExpand" 
+                                  NoResultsFoundText="Không tìm thấy dữ liệu"                                  
+                                  SelectedIndex="0"  
+                                  Style="{StaticResource styleCombobox}">
+                <sfcombox:SfComboBox.ComboBoxSource>
+                    <ListCollection:List x:TypeArguments="x:String">
+                        <x:String>Đọc chỉ số tức thời</x:String>
+                        <x:String>Đọc thông số vận hành</x:String>                       
+                    </ListCollection:List>
+                </sfcombox:SfComboBox.ComboBoxSource>
+            </sfcombox:SfComboBox>
+
+            <Label x:Name="lblResult"
+                VerticalOptions="StartAndExpand" 
+                HorizontalOptions="StartAndExpand" LineBreakMode="WordWrap" FontAttributes="Bold"/>
+           
+
+                <ListView x:Name="lstViewResult" 
+                          BackgroundColor="White"
+                          HasUnevenRows="True">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.View>
+                                <Grid ColumnDefinitions="4*,6*" Padding="5">
+                                    <Grid.RowDefinitions>
+                                        <!--RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto"-->
+                                        <RowDefinition Height="{Binding RowHeight}"></RowDefinition>
+                                        <RowDefinition Height="{Binding RowHeight}"></RowDefinition>
+                                        <RowDefinition Height="{Binding RowHeight}"></RowDefinition>
+                                        <RowDefinition Height="{Binding RowHeight}"></RowDefinition>                                        
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                        <Label FontSize="16" Text="Trạng Thái :"  Grid.Column="0" Grid.Row="0" VerticalOptions="Start"></Label>
+                                        <Label FontSize="16" Grid.Row="0" Grid.Column="1"    
+                                               VerticalOptions="Start" >
+                                            <Label.Style >
+                                                <Binding Path="Chiso">
+                                                    <Binding.Converter>
+                                                        <local1:ConvertOnline x:TypeArguments="Style">
+                                                            <local1:ConvertOnline.TrueObject>
+                                                                <Style TargetType="Label">
+                                                                    <Setter Property="Text" Value="ONLINE" />
+                                                                    <Setter Property="FontAttributes" Value="Italic, Bold" />
+                                                                    <Setter Property="TextColor" Value="Green" />
+                                                                </Style>
+                                                            </local1:ConvertOnline.TrueObject>
+
+                                                            <local1:ConvertOnline.FalseObject>
+                                                                <Style TargetType="Label">
+                                                                    <Setter Property="Text" Value="OFFLINE" />
+                                                                    <Setter Property="FontAttributes" Value="Italic, Bold" />
+                                                                    <Setter Property="TextColor" Value="Red" />
+                                                                </Style>
+                                                            </local1:ConvertOnline.FalseObject>
+
+                                                        <local1:ConvertOnline.NullObject>
+                                                            <Style TargetType="Label">
+                                                                <Setter Property="Text" Value="" />                                                                
+                                                            </Style>
+                                                        </local1:ConvertOnline.NullObject>
+                                                    </local1:ConvertOnline>
+                                                    </Binding.Converter>
+                                                </Binding>
+                                            </Label.Style>
+                                        </Label>
+                                        <Label FontSize="16" Text="Chỉ số sóng RF:"  Grid.Column="0" Grid.Row="1" VerticalOptions="Center" VerticalTextAlignment="Center"></Label>
+                                        <Button   Grid.Column="1" Grid.Row="1"
+                                            BackgroundColor="{Binding Path=RSSI, Converter={StaticResource convertRSSI}}"
+                                            FontSize="16" TextColor="White" Text="{Binding RSSI}"
+                                            FontAttributes="Bold"
+                                            VerticalOptions="Start">
+
+                                        </Button>
+                                    <Label FontSize="16" Text="Chỉ số cuối:"  Grid.Column="0" Grid.Row="2" VerticalOptions="Center" LineBreakMode="WordWrap"></Label>
+                                        <Label FontSize="16" Text="{Binding Chiso  }"  Grid.Column="1" Grid.Row="2" VerticalOptions="Center" LineBreakMode="WordWrap"></Label>
+                                    <Label FontSize="16" Text="Ngày giờ kết nối :"  Grid.Column="0" Grid.Row="3" VerticalOptions="Center" LineBreakMode="WordWrap"></Label>
+                                    <Label FontSize="16" Text="{Binding NgayGio}"  Grid.Column="1" Grid.Row="3" VerticalOptions="Center" LineBreakMode="WordWrap"></Label>
+                                    <Label FontSize="16" Text="Nội dung :"  Grid.Column="0" Grid.Row="4" VerticalOptions="Start" LineBreakMode="WordWrap"></Label>
+                                        <Label FontSize="16" Text="{Binding ErrorCode}" LineBreakMode="WordWrap" Grid.Column="1" Grid.Row="4" VerticalOptions="Start"></Label>
+                                    </Grid>
+                                </ViewCell.View>
+
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+           
+            <sfbutton:SfButton Text="Kiểm Tra" x:Name="Send" Clicked="Send_Clicked" BackgroundColor="#149C62" TextColor="White" VerticalOptions="EndAndExpand" IsEnabled="True"></sfbutton:SfButton>
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

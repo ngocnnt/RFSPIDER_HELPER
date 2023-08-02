@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:sfcombox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
+             xmlns:sfinput="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+             mc:Ignorable="d"
+             Title="Cài Đặt"
+             x:Class="APP_KTRA_ROUTER.Views.Setting">
+    <ContentPage.Content>
+        <StackLayout>
+
+            <sfcombox:SfComboBox x:Name="com" Watermark="Chọn công ty điện lực"
+                                  Style="{StaticResource styleCombobox}"                                    
+                                     HorizontalOptions="FillAndExpand" 
+                                     DisplayMemberPath="TEN_DON_VI"                                      
+                                     NoResultsFoundText="Không tìm thấy"
+                                     SelectionChanged="com_SelectionChanged"/>
+
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>

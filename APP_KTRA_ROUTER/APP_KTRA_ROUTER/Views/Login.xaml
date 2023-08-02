@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:APP_KTRA_ROUTER.Renderer"
+             xmlns:sfbutton="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             xmlns:sfinputText="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"             
+             mc:Ignorable="d"
+             Style="{StaticResource ParentBackgroup}"
+             x:Class="APP_KTRA_ROUTER.Views.Login"   >
+    <ContentPage.Resources>
+        <Style TargetType="Entry" Class="entryClass">
+            <Setter Property="FontAttributes" Value="Bold"></Setter>
+            <Setter Property="TextColor" Value="Blue"></Setter>
+            <Setter Property="FontSize" Value="16"></Setter>
+            <Setter Property="BackgroundColor" Value="White"></Setter>
+        </Style>
+
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid Margin="20,40,20,0" RowSpacing="10"  >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="60"/>
+            </Grid.RowDefinitions>
+            <Image Source="logo.png" Grid.Row="0"></Image>
+
+
+            <StackLayout Orientation="Vertical" Padding="10,5,10,0" Grid.Row="1">               
+                <sfinputText:SfTextInputLayout Hint="Tên đăng nhập"      
+                                               ContainerType="Outlined" 
+                                               LeadingViewPosition="Inside">
+                    <Entry x:Name="btnusername" StyleClass="entryClass"  ClearButtonVisibility="WhileEditing"></Entry>
+                    <sfinputText:SfTextInputLayout.LeadingView>
+                        <Image Source="user.png"/>
+                    </sfinputText:SfTextInputLayout.LeadingView>
+                    <sfinputText:SfTextInputLayout.HintLabelStyle>
+                        <sfinputText:LabelStyle FontSize="16" FontAttributes="Bold"  />
+                    </sfinputText:SfTextInputLayout.HintLabelStyle>                    
+                </sfinputText:SfTextInputLayout>
+             
+
+            </StackLayout>
+
+            <StackLayout Orientation="Vertical" Padding="10,5,10,0" Grid.Row="2">                           
+                <sfinputText:SfTextInputLayout Hint="Nhập mật khẩu" 
+                                               ContainerType="Outlined"
+                                               LeadingViewPosition="Inside"
+                                               EnablePasswordVisibilityToggle="True"                                               
+                                               >
+                    <Entry x:Name="btnpassword" StyleClass="entryClass" ClearButtonVisibility="WhileEditing" IsPassword="True"></Entry>
+                    <sfinputText:SfTextInputLayout.LeadingView>
+                        <Image Source="password.png"/>
+                    </sfinputText:SfTextInputLayout.LeadingView>
+                    <sfinputText:SfTextInputLayout.HintLabelStyle>
+                        <sfinputText:LabelStyle FontSize="16" FontAttributes="Bold">
+                        </sfinputText:LabelStyle>
+                    </sfinputText:SfTextInputLayout.HintLabelStyle>
+                </sfinputText:SfTextInputLayout>
+
+               
+            </StackLayout>
+            <StackLayout Grid.Row="3"   Padding="10,5,10,5" >
+                <RelativeLayout AnchorX="5">                   
+                    <sfbutton:SfSwitch VisualType="Material" x:Name="swRememer" IsEnabled="True" IsOn="True"  HeightRequest="30">
+                        
+                    </sfbutton:SfSwitch>
+                    <Label Text ="Ghi Nhớ" FontSize="Medium" Margin="10,0,0,0"
+                       x:Name="lblNhoTOi"
+                           RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent , ElementName=swRememer,Property=Width,Factor =0.14}"
+                            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent , ElementName=swRememer,Property = Height,Factor =0.1}"
+                     />
+                </RelativeLayout>
+
+
+            </StackLayout>
+            <StackLayout Grid.Row="6" VerticalOptions="FillAndExpand" Padding="10,5,10,5" Orientation="Horizontal" HorizontalOptions="FillAndExpand">              
+
+                <sfbutton:SfButton Text="Đăng Nhập"                                    
+                    CornerRadius="60"                   
+                    BackgroundColor="ForestGreen"                   
+                    Clicked="SfButton_Clicked"
+                    TextColor="White"
+                                   HorizontalOptions="FillAndExpand"
+                    FontSize="Large" Padding="10"/>
+                <sfbutton:SfButton Text="Đăng Ký"                                    
+                    CornerRadius="60" 
+                    Clicked="SfButton_Clicked_1"
+                    TextColor="White"
+                                   HorizontalOptions="FillAndExpand"
+                    FontSize="Large" Padding="10"/>
+            </StackLayout>
+
+            <StackLayout Grid.Row="8" Orientation="Vertical" VerticalOptions="CenterAndExpand" HorizontalOptions="Center">
+                <Label Text="Phần mềm được thiết kế bởi bộ phận NCPT"/>
+                <Label Text="@2020 CPC EMEC" HorizontalTextAlignment="Center"/>
+
+            </StackLayout>
+
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

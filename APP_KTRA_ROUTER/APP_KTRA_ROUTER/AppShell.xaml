@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms" 
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+       mc:Ignorable="d"
+       xmlns:local="clr-namespace:APP_KTRA_ROUTER.Views"
+       Title="APP_KTRA_ROUTER"           
+       BackgroundColor="#149C62"   
+       FlyoutBackgroundImage="flybackroud.png"
+       FlyoutBackgroundImageAspect="AspectFill"
+       FlyoutBehavior="Flyout"
+       Style="{StaticResource ParentSell}"
+       x:Class="APP_KTRA_ROUTER.AppShell">
+   
+    <!-- 
+        Styles and Resources 
+    -->
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Color x:Key="NavigationPrimary">#149C62</Color>            
+            <Style x:Key="BaseStyle" TargetType="Element">
+                <Setter Property="Shell.BackgroundColor" Value="{StaticResource NavigationPrimary}" />
+                <Setter Property="Shell.ForegroundColor" Value="White" />
+                <Setter Property="Shell.TitleColor" Value="White" />
+                <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+                <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="White"/>
+                <Setter Property="Shell.TabBarUnselectedColor" Value="#95FFFFFF"/>
+                <Setter Property="Shell.TabBarTitleColor" Value="Red"/>               
+            </Style>
+            <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
+        </ResourceDictionary>
+    </Shell.Resources>
+
+    <!-- Your Pages -->
+    <!--<TabBar>
+        <Tab Title="Home" Icon="tab_feed.png">
+            <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
+        </Tab>
+        <Tab Title="About" Icon="tab_about.png">
+            <ShellContent ContentTemplate="{DataTemplate local:AboutPage}" />
+        </Tab>
+        <Tab Title="Cài Đặt" Icon="setting.png" >
+            <ShellContent ContentTemplate="{DataTemplate local:Setting}" />
+        </Tab>
+    </TabBar>-->
+    <Shell.FlyoutHeader>
+        <local:HeaderMenu ></local:HeaderMenu>
+    </Shell.FlyoutHeader>
+  
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" >
+        <ShellContent Title="Trang Chủ" IsTabStop="True" Icon="home.png" Route="Home" ContentTemplate="{DataTemplate local:Home}"  />
+    </FlyoutItem>
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" >
+        <ShellContent Title="Kiểm tra trạng thái thiết bị"  IsTabStop="True" Icon="ic_check.png" ContentTemplate="{DataTemplate local:MainPage }" />
+    </FlyoutItem>
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" >
+        <ShellContent Title="Khám phá đường dẫn..." Icon="khampha.png" IsTabStop="True" ContentTemplate="{DataTemplate local:Ktra_Khac }" />
+    </FlyoutItem>
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" >
+        <ShellContent Title="Tra cứu lịch sử thiết bị" IsTabStop="True" Icon="history.png" ContentTemplate="{DataTemplate local:Dcu_History }" />
+    </FlyoutItem>
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" >
+        <ShellContent Title="Treo tháo DCU/Router" Icon="refresh.png" IsTabStop="True" ContentTemplate="{DataTemplate local:TreothaoDcuRouter }" />
+    </FlyoutItem>
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" >
+        <ShellContent Title="Thiết bị đến hạn kiểm định" Icon="verif.png" IsTabStop="True" ContentTemplate="{DataTemplate local:Home}" />
+    </FlyoutItem>
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" >
+        <ShellContent Title="-- Công tơ" IsTabStop="True" ContentTemplate="{DataTemplate local:ThietBiDenHanKiemDinh }" />
+    </FlyoutItem>
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" >
+        <ShellContent Title="-- TU" IsTabStop="True" ContentTemplate="{DataTemplate local:ThietBiDenHanKiemDinhTU }" />
+    </FlyoutItem>
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" >
+        <ShellContent Title="-- TI" IsTabStop="True" ContentTemplate="{DataTemplate local:ThietBiDenHanKiemDinhTI }" />
+    </FlyoutItem>
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" >
+        <ShellContent Title="DS kiểm định bảo hành" Icon="checklist.png" IsTabStop="True" ContentTemplate="{DataTemplate local:DSKiemDinhBaoHanh }" />
+    </FlyoutItem>
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" >
+        <ShellContent Title="Kiểm tra trạng thái modem trên EVNHES" Icon="modem.png" IsTabStop="True" ContentTemplate="{DataTemplate local:KiemTraModem }" />
+    </FlyoutItem>
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" >
+        <ShellContent Title="Cài đặt" Icon="setting.png" IsTabStop="True" ContentTemplate="{DataTemplate local:Setting }" />
+    </FlyoutItem>
+    
+    <MenuItem Text="Thông tin ứng dụng" Clicked="MenuItem_Clicked_1" IconImageSource="information.png">
+
+    </MenuItem>
+    <MenuItem Text="Thoát" Clicked="MenuItem_Clicked" IconImageSource="offline.png">
+        
+    </MenuItem>
+    <!-- Optional Templates 
+    // These may be provided inline as below or as separate classes.
+
+    // This header appears at the top of the Flyout.
+    <Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <Grid>ContentHere</Grid>
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
+
+    // ItemTemplate is for ShellItems as displayed in a Flyout
+    <Shell.ItemTemplate>
+        <DataTemplate>
+            <ContentView>
+                Bindable Properties: Title, Icon
+            </ContentView>
+        </DataTemplate>
+    </Shell.ItemTemplate>
+
+    // MenuItemTemplate is for MenuItems as displayed in a Flyout
+    <Shell.MenuItemTemplate>
+        <DataTemplate>
+            <ContentView>
+                Bindable Properties: Text, Icon
+            </ContentView>
+        </DataTemplate>
+    </Shell.MenuItemTemplate>
+
+    -->
+
+</Shell>

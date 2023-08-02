@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" 
+              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup" 
+              xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"            
+             BackgroundColor="Transparent"                
+             CloseWhenBackgroundIsClicked="True"             
+             x:Class="APP_KTRA_ROUTER.Popup.CBox_DienLuc">
+
+    <pages:PopupPage.Animation>
+        <animations:MoveAnimation 
+            PositionIn="Bottom" 
+            PositionOut="Top">
+        </animations:MoveAnimation>
+    </pages:PopupPage.Animation>
+    <Frame CornerRadius="15"
+           OutlineColor="Black"    
+           HeightRequest="300"
+           HorizontalOptions="FillAndExpand"
+           VerticalOptions="CenterAndExpand">
+        <StackLayout HorizontalOptions="FillAndExpand">
+            <ListView x:Name="listviewDonVi"
+                      ItemsSource="{Binding _listDonVi}"
+                  HasUnevenRows="True"
+                  HorizontalOptions="FillAndExpand"                  
+                  ItemSelected="ListView_ItemSelected">
+                <ListView.Header>
+                    <Grid ColumnDefinitions="3*,7*" HorizontalOptions="FillAndExpand">
+                        <Label Text="MÃ ĐƠN VỊ" Grid.Column="0"  FontSize="18" FontAttributes="Bold" HorizontalTextAlignment="Center" ></Label>
+                        <Label Text="TÊN ĐƠN VỊ" Grid.Column="1" FontSize="18" FontAttributes="Bold" HorizontalTextAlignment="Center"></Label>
+                    </Grid>
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View >
+                                <Grid ColumnDefinitions="3*,7*" HorizontalOptions="FillAndExpand" RowSpacing="5" Padding="0,5,0,5">
+                                    <Label Text="{Binding MA_DON_VI}" Grid.Column="0" TextColor="#149C62" FontSize="18" HorizontalTextAlignment="Start"></Label>
+                                    <Label Text="{Binding TEN_DON_VI}" Grid.Column="1"  TextColor="#149C62" FontSize="18" HorizontalTextAlignment="Start"></Label>
+                                </Grid>
+                            </ViewCell.View>
+                        </ViewCell>
+                        
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </StackLayout>
+    </Frame>
+</pages:PopupPage>

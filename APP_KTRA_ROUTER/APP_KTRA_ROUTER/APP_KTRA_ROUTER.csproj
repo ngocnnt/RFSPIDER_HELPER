@@ -1,0 +1,127 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <ApplicationIcon></ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie" Version="3.0.4" />
+    <PackageReference Include="M2MqttDotnetCore" Version="1.0.8" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="MQTTnet" Version="3.0.11" />
+    <PackageReference Include="Plugin.Permissions" Version="6.0.1" />
+    <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.3" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.7.335" />
+    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.2.0.55" />
+    <PackageReference Include="Syncfusion.Xamarin.Core" Version="18.2.0.55" />
+    <PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="18.2.0.55" />
+    <PackageReference Include="Syncfusion.Xamarin.SfMaskedEdit" Version="18.2.0.55" />
+    <PackageReference Include="Syncfusion.Xamarin.SfNumericTextBox" Version="18.2.0.55" />
+    <PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="18.2.0.55" />
+    <PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="18.2.0.55" />  
+    <PackageReference Include="Xam.Plugin.Connectivity" Version="3.2.0" />
+    <PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
+    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1269" />  
+    <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Xamarin.Forms.Maps" Version="4.8.0.1269" />
+    <PackageReference Include="ZXing.Net.Mobile" Version="2.4.1" />
+    <PackageReference Include="ZXing.Net.Mobile.Forms" Version="2.4.1" />
+  </ItemGroup>
+
+  
+  <ItemGroup>
+    <Compile Update="Popup\Cbox_Path.xaml.cs">
+      <DependentUpon>Cbox_Path.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\DSKiemDinhBaoHanh.xaml.cs">
+      <DependentUpon>DSKiemDinhBaoHanh.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ThietBiDenHanKiemDinhTI.xaml.cs">
+      <DependentUpon>ThietBiDenHanKiemDinhTI.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ThietBiDenHanKiemDinhTU.xaml.cs">
+      <DependentUpon>ThietBiDenHanKiemDinhTU.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ThietBiDenHanKiemDinh.xaml.cs">
+      <DependentUpon>ThietBiDenHanKiemDinh.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Ktra_Khac.xaml.cs">
+      <DependentUpon>Ktra_Khac.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Dcu_History.xaml.cs">
+      <DependentUpon>Dcu_History.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\KiemTraModem.xaml.cs">
+      <DependentUpon>KiemTraModem.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Cau_Hinh_SRFI\Kiem_Tra_DCU_ROUTER.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Popup\AppInformation.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Popup\CBox_DienLuc.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Popup\Cbox_Tram.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Popup\MessageBox.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Popup\MessageYESNO.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Popup\RegestryUser.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\CongTo_Check.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Dcu_Check.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\HeaderMenu.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Home.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Login.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\MainPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Setting.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Tim_Kiem_Khach_Hang.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Ghi_Chi_So\" />
+    <Folder Include="Cai_Dat_Bluetooth\" />
+    <Folder Include="Kiem_Tra_RF\" />
+    <Folder Include="Cau_Hinh_RF_EXT\" />
+    <Folder Include="Chuc_Nang_DVXT\" />
+  </ItemGroup>
+</Project>

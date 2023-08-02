@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:PopupPage  xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:sfbutton="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms" xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup" xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             x:Class="APP_KTRA_ROUTER.Popup.AppInformation">
+    <pages:PopupPage.Animation >
+        <animations:ScaleAnimation 
+            PositionIn="Center"
+            PositionOut="Center"
+            ScaleIn="1.2"
+            ScaleOut="0.8"
+            DurationIn="400"
+            DurationOut="300"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"/>
+    </pages:PopupPage.Animation>
+    <Frame CornerRadius="15"
+           Margin="40,0,40,0"                 
+            HorizontalOptions="CenterAndExpand"              
+           BackgroundColor="White"
+           VerticalOptions="Center">
+        <StackLayout HorizontalOptions="FillAndExpand" Spacing="10">
+
+            <Image HorizontalOptions="CenterAndExpand" Source="logo" Aspect="AspectFit" WidthRequest="150" HeightRequest="50" />
+            <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+                <Label Text="Ứng dụng:" Style="{StaticResource styleLableGreen}" FontSize="17"></Label>
+                <Label Text="RF-SPIDER HELPER" Style="{StaticResource styleLable}"  FontSize="17"></Label>
+            </StackLayout>
+            <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal"  >
+                <Label Text="Hệ điều hành:" Style="{StaticResource styleLableGreen}"  FontSize="17"></Label>
+                <Label x:Name="lblHeDieuHanh" Style="{StaticResource styleLable}"  FontSize="17"></Label>
+            </StackLayout>
+            <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+                <Label Text="Phiên bản hiện tại:" Style="{StaticResource styleLableGreen}"  FontSize="17"></Label>
+                <Label x:Name="lblPhienBan" Style="{StaticResource styleLable}"  FontSize="17"></Label>
+            </StackLayout>
+            <sfbutton:SfButton          x:Name="btnOK"    Margin="20,10,20,0"
+                                        Text="Kiểm tra cập nhật" FontSize="17"  
+                                        CornerRadius="30"
+                                        Clicked="btnOK_Clicked"
+                                        Command="{Binding UpdateAppCommand}"
+                                        FontAttributes="None"
+                                        HorizontalOptions="CenterAndExpand"                                          
+                                      >
+            </sfbutton:SfButton>
+        </StackLayout>
+
+    </Frame>
+</pages:PopupPage>

@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"   
+             xmlns:sfbutton="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             mc:Ignorable="d"            
+             x:Class="APP_KTRA_ROUTER.Views.Dcu_Check">
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid ColumnDefinitions="5*,5*" RowDefinitions="Auto,Auto,Auto,Auto" RowSpacing="0" ColumnSpacing="0">
+                <Label  Text="Trạng Thái :" FontSize="16" Grid.Column="0" Grid.Row="0"
+                VerticalOptions="StartAndExpand" 
+                HorizontalOptions="StartAndExpand" LineBreakMode="WordWrap" 
+                       Padding="10,10,0,0"/>
+                <Label x:Name="lblTrangThai" FontSize="16" Grid.Column="1" Grid.Row="0"
+                VerticalOptions="StartAndExpand" 
+                HorizontalOptions="StartAndExpand" LineBreakMode="WordWrap" 
+                       Padding="5,10,0,0"/>
+
+                <Label  Text="Chỉ số sóng di động :" FontSize="16" Grid.Column="0" Grid.Row="1"
+                VerticalOptions="StartAndExpand" 
+                HorizontalOptions="StartAndExpand" LineBreakMode="WordWrap" 
+                       Padding="10,0,0,0"/>
+                <Label x:Name="lblchisosong" FontSize="16" Grid.Column="1" Grid.Row="1"
+                VerticalOptions="StartAndExpand" 
+                HorizontalOptions="StartAndExpand" LineBreakMode="WordWrap" 
+                       Padding="5,0,0,0"/>
+
+                <Label  Text="Ngày giờ kết nối :" FontSize="16" Grid.Column="0" Grid.Row="2"
+                VerticalOptions="StartAndExpand" 
+                HorizontalOptions="StartAndExpand" LineBreakMode="WordWrap" 
+                       Padding="10,0,0,0"/>
+                <Label x:Name="lblngaygio" FontSize="16" Grid.Column="1" Grid.Row="2"
+                VerticalOptions="StartAndExpand" 
+                HorizontalOptions="StartAndExpand" LineBreakMode="WordWrap" 
+                       Padding="5,0,0,0"/>
+
+                <Label  Text="Mã Lỗi :" FontSize="16" Grid.Column="0" Grid.Row="3"
+                VerticalOptions="StartAndExpand" 
+                HorizontalOptions="StartAndExpand" LineBreakMode="WordWrap" 
+                       Padding="10,0,0,0"/>
+                <Label x:Name="lblmaloi" FontSize="16" Grid.Column="1" Grid.Row="3"
+                VerticalOptions="StartAndExpand" 
+                HorizontalOptions="StartAndExpand" LineBreakMode="WordWrap" 
+                       Padding="5,0,0,0"/>
+
+            </Grid>
+          
+            <sfbutton:SfButton Text="Đọc Lại" x:Name="Send" Clicked="Send_Clicked" BackgroundColor="#149C62" TextColor="White" VerticalOptions="EndAndExpand"></sfbutton:SfButton>
+            
+        </StackLayout>
+           
+    </ContentPage.Content>
+</ContentPage>

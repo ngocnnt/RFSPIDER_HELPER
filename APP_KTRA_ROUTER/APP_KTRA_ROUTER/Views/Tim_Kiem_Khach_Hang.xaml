@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:sfbutton="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms" 
+             xmlns:sfDataGrid="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms"              
+             xmlns:sfinputtext="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+              xmlns:local1="clr-namespace:APP_KTRA_ROUTER.Views"
+             x:Class="APP_KTRA_ROUTER.Views.Tim_Kiem_Khach_Hang">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local1:Dark x:Key="dark" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout Spacing="6">
+            <Grid ColumnDefinitions="8*,2*">                
+                <sfinputtext:SfTextInputLayout Hint="Nhập tên khách hàng để tìm"  
+                                               Grid.Column="0"
+                                               LeadingViewPosition="Inside"
+                                               HeightRequest="60"
+                                               ContainerType="Outlined">
+                    <Entry x:Name="search" HorizontalOptions="FillAndExpand"  ClearButtonVisibility="WhileEditing"
+                           Style="{StaticResource styleSearch}"
+                           />
+                    <sfinputtext:SfTextInputLayout.LeadingView>
+                        <Image Source="search.png"></Image>
+                    </sfinputtext:SfTextInputLayout.LeadingView>
+                </sfinputtext:SfTextInputLayout>
+                <sfbutton:SfButton x:Name="btnSearch" Grid.Column="1"  Text="Tìm" Clicked="btnSearch_Clicked" CornerRadius="60" 
+                        TextColor="White" BackgroundColor="#149C62" Margin="5,5,5,5" VerticalOptions="CenterAndExpand"></sfbutton:SfButton>
+            </Grid>
+            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                
+                    <sfDataGrid:SfDataGrid  x:Name="lstKhachHang"  
+                                            ItemsSource="{Binding ListKhachHang}"
+                                            VerticalOptions="FillAndExpand"  
+                                            HorizontalOptions="FillAndExpand"
+                                            AutoGenerateColumns="False"
+                                            GridStyle="{StaticResource dark}"  
+                                            AllowSorting="True"                          
+                                       AllowDraggingRow="True"
+                                       AllowMultiSorting="True"
+                                       AllowDraggingColumn="True"                          
+                                       SelectionMode="Single"                          
+                                       ColumnSizer="LastColumnFill"               
+                                       AllowGroupExpandCollapse="True"
+                                       AutoExpandGroups="False"
+                                       AllowTriStateSorting="True"
+                                       AllowDiagonalScrolling="True"
+                                       VerticalOverScrollMode="Bounce">
+                        <sfDataGrid:SfDataGrid.Columns>
+                        <sfDataGrid:GridTextColumn  HeaderText="TÊN TRẠM" 
+                                                ColumnSizer="Auto" 
+                                                MappingName="TEN_TRAM" 
+                                                    Width="200"
+                                                HeaderFontAttribute="Bold" 
+                                               TextAlignment="Start"
+                                                HeaderCellTextSize="16"/>
+
+                        <sfDataGrid:GridTextColumn  HeaderText="TÊN KH" 
+                                                ColumnSizer="Auto" 
+                                                    Width="200"
+                                                MappingName="TEN_KHANG" 
+                                                    TextAlignment="Start"
+                                                HeaderFontAttribute="Bold" 
+                                                HeaderCellTextSize="16"/>
+                        <sfDataGrid:GridTextColumn  HeaderText="ĐỊA CHỈ" 
+                                                ColumnSizer="Auto" 
+                                                    Width="200"
+                                                MappingName="DIA_CHI" 
+                                                    TextAlignment="Start"
+                                                HeaderFontAttribute="Bold" 
+                                                HeaderCellTextSize="16"/>
+
+                        <sfDataGrid:GridTextColumn  HeaderText="SỐ SERIAL"                                                
+                                                MappingName="SERY_CTO"                                                   
+                                                    TextAlignment="Start"
+                                                HeaderFontAttribute="Bold" 
+                                                    ColumnSizer="LastColumnFill"
+                                                HeaderCellTextSize="16"/>
+
+                    </sfDataGrid:SfDataGrid.Columns>                      
+
+                    </sfDataGrid:SfDataGrid>
+                    
+              
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" VerticalOptions="End">
+                <sfbutton:SfButton Text="Kiểm Tra" x:Name="btnGuiYeuCau" Clicked="btnGuiYeuCau_Clicked" 
+                        CornerRadius="60" HorizontalOptions="FillAndExpand"
+                        TextColor="White" BackgroundColor="#149C62"></sfbutton:SfButton>
+                
+
+            </StackLayout>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

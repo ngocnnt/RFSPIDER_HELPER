@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ListCollection="clr-namespace:System.Collections.Generic;assembly=netstandard"
+             xmlns:sfbutton="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms" 
+             xmlns:sfcombox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms" 
+             xmlns:sfinputtext="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+             xmlns:sfpicker="clr-namespace:Syncfusion.XForms.Pickers;assembly=Syncfusion.SfPicker.XForms"
+             xmlns:local="clr-namespace:APP_KTRA_ROUTER.ViewModels" xmlns:local1="clr-namespace:APP_KTRA_ROUTER.Views"
+             mc:Ignorable="d"
+             BackgroundColor="White"
+             Style="{StaticResource ParentBackgroup}"
+             Title="Kiểm tra trạng thái modem trên EVNHES"
+             x:Class="APP_KTRA_ROUTER.Views.KiemTraModem">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local1:Dark x:Key="dark" />
+        </ResourceDictionary>
+
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+
+        <StackLayout BackgroundColor="White">
+            <Grid x:Name="myGrid" RowDefinitions="50,65,50,65,500" BackgroundColor="White">
+                <sfinputtext:SfTextInputLayout Hint="IMEI" x:Name="IMEI"
+                                               Grid.Row="0"
+                                               HeightRequest="50"
+                                               LeadingViewPosition="Inside"
+                                               ContainerType="Filled">
+                    <Entry HorizontalOptions="FillAndExpand"   x:Name="IMEIText" Keyboard="Numeric" FontSize="20" FontAttributes="Bold" 
+                           Style="{StaticResource styleSearch}"
+                           />
+
+                    <sfinputtext:SfTextInputLayout.TrailingView>
+                        <sfbutton:SfButton Text="Quét" x:Name="scanIMEIBtn" Clicked="scanIMEIBtn_ClickedAsync" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                               FontAttributes="Bold"
+                               CornerRadius="3"
+                               FontSize="24"
+                               HeightRequest="50" WidthRequest="100"
+                               BackgroundColor="#149C62"
+                               >
+                        </sfbutton:SfButton>
+                    </sfinputtext:SfTextInputLayout.TrailingView>
+                </sfinputtext:SfTextInputLayout>
+
+
+                <StackLayout Grid.Row="1" VerticalOptions="Fill" Padding="10,5,10,5" Margin="20,10,20,10" >
+                    <sfbutton:SfButton Text="Kiểm tra" x:Name="btnKiemtra"                  
+                    BackgroundColor="ForestGreen"                   
+                    Clicked="btnKiemTra_Clicked"
+                    TextColor="White"
+                    FontSize="Large"/>
+                </StackLayout>
+
+                <Grid Grid.Row="2" VerticalOptions="Fill" HeightRequest="50" ColumnSpacing="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <sfcombox:SfComboBox  x:Name="cbLoaiData" Watermark="Chọn loại dữ liệu" WatermarkColor="Gray"         
+                             HorizontalOptions="Start" Grid.Column="0" WidthRequest="300" 
+                             Style="{StaticResource styleCombobox}" SelectionChanged="cbLoaiData_SelectionChanged"
+                             SelectedItem="{Binding SelectedLoaiData}">
+                        <sfcombox:SfComboBox.ComboBoxSource>
+                            <ListCollection:List x:TypeArguments="x:String">
+                                <!--<x:String>Chỉ số tức thời</x:String>-->
+                                <x:String>Thông số vận hành</x:String>
+                                <x:String>Loadprofile</x:String>
+                                <x:String>Chỉ số chốt</x:String>
+                                <x:String>Công suất cực đại</x:String>
+                                <x:String>Sự kiện</x:String>
+                            </ListCollection:List>
+                        </sfcombox:SfComboBox.ComboBoxSource>
+                    </sfcombox:SfComboBox>
+                    <Grid Grid.Column="1">
+                        <sfpicker:SfDatePicker x:Name="SelectTuNgay" HeaderText="Từ ngày" 
+                                     DateSelected="Datepicker_DateSelected" 
+                                     PickerHeight="300"
+                                     PickerWidth="300"
+                                     PickerMode="Dialog" Format="dd_MMM_yyyy"/>
+                        <sfbutton:SfButton Text="Từ ngày" x:Name="pickerTuNgay" Clicked="TuNgay_Clicked" HorizontalOptions="End" VerticalOptions="FillAndExpand"
+                               CornerRadius="1"
+                               FontSize="15"
+                               HeightRequest="50" WidthRequest="150"
+                               BackgroundColor="#149C62"
+                               >
+                        </sfbutton:SfButton>
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <sfpicker:SfDatePicker x:Name="SelectDenNgay" HeaderText="Đến ngày" 
+                                     DateSelected="SelectDenNgay_DateSelected"
+                                     PickerHeight="300"
+                                     PickerWidth="300"
+                                     PickerMode="Dialog" Format="dd_MMM_yyyy"/>
+                        <sfbutton:SfButton Text="Đến ngày" x:Name="pickerDenNgay" Clicked="DenNgay_Clicked" HorizontalOptions="End" VerticalOptions="FillAndExpand"
+                               CornerRadius="1"
+                               FontSize="15"
+                               HeightRequest="50" WidthRequest="150"
+                               BackgroundColor="#149C62"
+                               >
+                        </sfbutton:SfButton>
+                    </Grid>
+
+                    <!--<sfbutton:SfButton Text="Đọc" x:Name="btnRead" Clicked="btnRead_ClickedAsync" HorizontalOptions="End" VerticalOptions="FillAndExpand" Grid.Column="1"
+                               FontAttributes="Bold"
+                               CornerRadius="1"
+                               FontSize="24"
+                               HeightRequest="50" WidthRequest="150"
+                               BackgroundColor="#149C62"
+                               >
+                    </sfbutton:SfButton>-->
+                </Grid>
+                <StackLayout Grid.Row="3" VerticalOptions="Fill" Padding="10,5,10,5" Margin="20,0,20,10" >
+                    <sfbutton:SfButton Text="Đọc công tơ" x:Name="btnRead"                  
+                    BackgroundColor="ForestGreen"                   
+                    Clicked="btnRead_ClickedAsync"
+                    TextColor="White"
+                    FontSize="Large"/>
+                </StackLayout>
+                <StackLayout Grid.Row="4" Margin="15, 5, 10, 0">
+                    <Label x:Name="mqttEntry" LineBreakMode="CharacterWrap" TextColor="{StaticResource Primary}" FontSize="Medium"/>
+                </StackLayout>               
+            </Grid>
+        </StackLayout>
+
+
+
+    </ContentPage.Content>
+</ContentPage>

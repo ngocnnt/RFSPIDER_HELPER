@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:ListCollection="clr-namespace:System.Collections.Generic;assembly=netstandard"
+             xmlns:sfDataGrid ="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms"   
+             xmlns:sfbutton="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             xmlns:sfinputtext="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+             xmlns:sfcombox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
+             xmlns:local1="clr-namespace:APP_KTRA_ROUTER.Views"
+              xmlns:local="clr-namespace:APP_KTRA_ROUTER.ViewModels" xmlns:syncfusion="clr-namespace:Syncfusion.SfDataGrid.XForms.Renderers;assembly=Syncfusion.SfDataGrid.XForms"
+             Title="Danh sách gửi kiểm định, bảo hành, sửa chữa"
+             x:Class="APP_KTRA_ROUTER.Views.DSKiemDinhBaoHanh">
+   
+    <ContentPage.Resources>        
+        <ResourceDictionary>
+            <local1:Dark x:Key="dark" />
+        </ResourceDictionary>
+        
+    </ContentPage.Resources>
+    <ContentPage.BindingContext>
+        <local:DSKiemDinhBaoHanhViewModel></local:DSKiemDinhBaoHanhViewModel>
+    </ContentPage.BindingContext>    
+    <ContentPage.Content>
+
+        <StackLayout>
+            <Grid RowDefinitions="40,50,50,50">
+                <Grid ColumnDefinitions="*,*" Grid.Row="0" VerticalOptions="Center">
+                    <sfcombox:SfComboBox  x:Name="cbDienLuc" Watermark="Chọn Điện Lực" WatermarkColor="Gray"  
+                                 Grid.Column="0"
+                                 HeightRequest="50"
+                                 DataSource="{Binding DonVis , Mode=TwoWay}"                            
+                                 HorizontalOptions="FillAndExpand"                              
+                                 NoResultsFoundText="Không tìm thấy điện lực này" 
+                                 DisplayMemberPath="TEN_DON_VI" 
+                                 Style="{StaticResource styleCombobox}"
+                                 SelectedItem="{Binding SelectItemDonVi}" 
+                                 ShowClearButton="True"
+                                 ClearButtonColor="Red">
+                    </sfcombox:SfComboBox>
+                    <sfcombox:SfComboBox  x:Name="cbChungLoai" Watermark="Chọn chủng loại" WatermarkColor="Gray"
+                                 Grid.Column="1"
+                                 HeightRequest="50"
+                                 DataSource="{Binding DonViCLoais , Mode=TwoWay}"                            
+                                 HorizontalOptions="FillAndExpand"                              
+                                 NoResultsFoundText="Không tìm thấy chủng loại" 
+                                 DisplayMemberPath="TEN_CLOAI" 
+                                 Style="{StaticResource styleCombobox}"
+                                 SelectedItem="{Binding SelectItemDonViCLoai}">
+                    </sfcombox:SfComboBox>
+                </Grid>
+                <Grid ColumnDefinitions="*" Grid.Row="1" VerticalOptions="Center">
+                    <sfinputtext:SfTextInputLayout Hint="Nhập số serial"
+                                               Grid.Column="0"
+                                               HeightRequest="50"
+                                               WidthRequest="200"
+                                               LeadingViewPosition="Inside"
+                                               TrailingViewPosition="Inside"
+                                               ContainerType="Outlined">
+                        <Entry x:Name="search" HorizontalOptions="FillAndExpand"
+                           Style="{StaticResource styleSearch}"/>
+                        <sfinputtext:SfTextInputLayout.TrailingView>
+                            <sfbutton:SfButton Text="Quét" x:Name="scanBtn" Clicked="scanBtn_ClickedAsync" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                               FontAttributes="Bold"
+                               CornerRadius="3"
+                               FontSize="20"
+                               HeightRequest="45" WidthRequest="90"
+                               BackgroundColor="#149C62"
+                               >
+                            </sfbutton:SfButton>
+                        </sfinputtext:SfTextInputLayout.TrailingView>
+                    </sfinputtext:SfTextInputLayout>
+                </Grid>
+                <Grid ColumnDefinitions="*,*" Grid.Row="2" HeightRequest="50" Padding="0,10,0,0">
+                    <sfcombox:SfComboBox  x:Name="cbTinhTrang" Watermark="Chọn tình trạng" WatermarkColor="Gray"
+                             Grid.Column="0"
+                             HeightRequest="60"
+                             DataSource="{Binding Nams , Mode=TwoWay}"                            
+                             HorizontalOptions="FillAndExpand"                              
+                             NoResultsFoundText="Không tìm thấy tình trạng" 
+                             DisplayMemberPath="Nams" 
+                             Style="{StaticResource styleCombobox}"
+                             SelectedItem="{Binding SelectItemNam}">
+                    </sfcombox:SfComboBox>
+                    <sfinputtext:SfTextInputLayout Hint="Mô tả lỗi" Padding="0,0,0,0"
+                            Grid.Column="1"
+                            HeightRequest="50"
+                            WidthRequest="200"
+                            ContainerType="None">
+                        <Entry x:Name="motaloi" HorizontalOptions="FillAndExpand" FontSize="Small"
+                            HeightRequest="45"
+                           />
+                    </sfinputtext:SfTextInputLayout>
+                </Grid>
+                <Grid ColumnDefinitions="*,*,*" Grid.Row="3" HeightRequest="50" Padding="0,10,0,0">
+                    <sfbutton:SfButton x:Name="btnThem1" Text="Thêm" ShowIcon="True" ImageSource="add.png" Clicked="btnThem_Clicked" CornerRadius="50" FontSize="20" HeightRequest="50" FontAttributes="Bold"
+                               BackgroundColor="#008CBA" Grid.Column="0"/>
+                    <sfbutton:SfButton Text="Xuất excel" x:Name="btnXuatExcel"
+                            CornerRadius="50"
+                            FontAttributes="Bold"
+                            Grid.Column="1"
+                            HeightRequest="50"
+                            FontSize="20"
+                            BackgroundColor="#21DC37"                   
+                            Clicked="btnXuatExcel_Clicked"
+                            TextColor="White"/>
+                    <sfbutton:SfButton Text="Gửi" x:Name="btnGui1"
+                            CornerRadius="50"
+                            FontAttributes="Bold"
+                            Grid.Column="2"
+                            HeightRequest="50"
+                            FontSize="20"
+                            BackgroundColor="OrangeRed"                   
+                            Clicked="btnGui_Clicked"
+                            TextColor="White"/>
+                </Grid>
+            </Grid>
+
+            <sfDataGrid:SfDataGrid x:Name="listviewDCU"
+                          ScrollingMode="PixelLine"
+                          ItemsSource="{Binding LstDcuRouter}"
+                          SelectedItem="{Binding SelectItemPath}"
+                          AutoGenerateColumns="False"
+                          GridStyle="{StaticResource dark}"
+                           AllowSorting="True"
+                           AllowDraggingRow="True"
+                           AllowMultiSorting="True"
+                           AllowDraggingColumn="True"                          
+                           SelectionMode="Single"                          
+                           ColumnSizer="Auto"               
+                           AllowGroupExpandCollapse="True"
+                           AutoExpandGroups="False"
+                           AllowTriStateSorting="True"
+                           AllowDiagonalScrolling="True"
+                           VerticalOverScrollMode="None">
+                <sfDataGrid:SfDataGrid.Columns>
+
+                    <sfDataGrid:GridTextColumn MappingName="ID" HeaderText="Số serialID" HeaderFontAttribute="Bold" Width="220" HeaderCellTextSize="16">
+                        <sfDataGrid:GridTextColumn.CellStyle>
+                            <Style TargetType="sfDataGrid:GridCell">
+                                <Setter Property="Foreground" Value="Red" />
+                            </Style>
+                        </sfDataGrid:GridTextColumn.CellStyle>
+                    </sfDataGrid:GridTextColumn>
+
+                    <sfDataGrid:GridTextColumn MappingName="CHUNG_LOAI" HeaderText="" HeaderFontAttribute="Bold" Width="220" HeaderCellTextSize="16" IsHidden="True">
+                        <sfDataGrid:GridTextColumn.CellStyle>
+                            <Style TargetType="sfDataGrid:GridCell">
+                                <Setter Property="Foreground" Value="Black" />
+                            </Style>
+                        </sfDataGrid:GridTextColumn.CellStyle>
+                    </sfDataGrid:GridTextColumn>
+                    <sfDataGrid:GridTextColumn MappingName="TEN_CHUNG_LOAI" HeaderText="Chủng loại" HeaderFontAttribute="Bold" Width="220" HeaderCellTextSize="16">
+                        <sfDataGrid:GridTextColumn.CellStyle>
+                            <Style TargetType="sfDataGrid:GridCell">
+                                <Setter Property="Foreground" Value="Black" />
+                            </Style>
+                        </sfDataGrid:GridTextColumn.CellStyle>
+                    </sfDataGrid:GridTextColumn>
+                    <sfDataGrid:GridTextColumn MappingName="TINH_TRANG" HeaderText="" HeaderFontAttribute="Bold" Width="220" HeaderCellTextSize="16" IsHidden="True">
+                        <sfDataGrid:GridTextColumn.CellStyle>
+                            <Style TargetType="sfDataGrid:GridCell">
+                                <Setter Property="Foreground" Value="Black" />
+                            </Style>
+                        </sfDataGrid:GridTextColumn.CellStyle>
+                    </sfDataGrid:GridTextColumn>
+                    <sfDataGrid:GridTextColumn MappingName="TEN_TINH_TRANG" HeaderText="Tình trạng" HeaderFontAttribute="Bold" Width="220" HeaderCellTextSize="16">
+                        <sfDataGrid:GridTextColumn.CellStyle>
+                            <Style TargetType="sfDataGrid:GridCell">
+                                <Setter Property="Foreground" Value="Red" />
+                            </Style>
+                        </sfDataGrid:GridTextColumn.CellStyle>
+                    </sfDataGrid:GridTextColumn>
+                    <sfDataGrid:GridTextColumn MappingName="MO_TA_LOI" HeaderText="Mô tả lỗi" HeaderFontAttribute="Bold" Width="220" HeaderCellTextSize="16">
+                        <sfDataGrid:GridTextColumn.CellStyle>
+                            <Style TargetType="sfDataGrid:GridCell">
+                                <Setter Property="Foreground" Value="Black" />
+                            </Style>
+                        </sfDataGrid:GridTextColumn.CellStyle>
+                    </sfDataGrid:GridTextColumn>
+                    <sfDataGrid:GridTextColumn MappingName="NGAY_XUAT_KHO" HeaderText="Ngày xuất kho" HeaderFontAttribute="Bold" Width="220" HeaderCellTextSize="16">
+                        <sfDataGrid:GridTextColumn.CellStyle>
+                            <Style TargetType="sfDataGrid:GridCell">
+                                <Setter Property="Foreground" Value="Red" />
+                            </Style>
+                        </sfDataGrid:GridTextColumn.CellStyle>
+                    </sfDataGrid:GridTextColumn>
+                    <sfDataGrid:GridTextColumn MappingName="HAN_BAO_HANH" HeaderText="Hạn bảo hành" HeaderFontAttribute="Bold" Width="220" HeaderCellTextSize="16">
+                        <sfDataGrid:GridTextColumn.CellStyle>
+                            <Style TargetType="sfDataGrid:GridCell">
+                                <Setter Property="Foreground" Value="Black" />
+                            </Style>
+                        </sfDataGrid:GridTextColumn.CellStyle>
+                    </sfDataGrid:GridTextColumn>
+                </sfDataGrid:SfDataGrid.Columns>
+
+            </sfDataGrid:SfDataGrid>
+
+            <StackLayout Orientation="Horizontal" VerticalOptions="End">
+                <sfbutton:SfButton Text="Xóa" x:Name="btnXoa" Clicked="btnXoa_Clicked" 
+                        CornerRadius="60" HorizontalOptions="FillAndExpand"
+                        TextColor="White" BackgroundColor="Red"></sfbutton:SfButton>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
