@@ -123,7 +123,7 @@
                     FontSize="Large"/>
                 </StackLayout>
                 <StackLayout Grid.Row="4" Margin="15, 5, 10, 0">
-                    <Label x:Name="mqttEntry" LineBreakMode="CharacterWrap" TextColor="{StaticResource Primary}" FontSize="Medium"/>
+                    <Label x:Name="mqttEntry" LineBreakMode="WordWrap" TextColor="{StaticResource Primary}" FontSize="Medium"/>
                 </StackLayout>               
             </Grid>
         </StackLayout>
