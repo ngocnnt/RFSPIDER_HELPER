@@ -29,6 +29,7 @@ namespace APP_KTRA_ROUTER.Models
         public string MeterID { get; set; }
         public string Path { get; set; }
         public string TypeReq { get; set; } 
+        public string Time { get; set; }
     }
     public class DcuMqttResp
     {

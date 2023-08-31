@@ -17,7 +17,9 @@ namespace APP_KTRA_ROUTER
             //đăng ki kênh mqtt       
             if (MqttClientRepository.client == null)
             {
-                MqttClientRepository.client = repository.Create("222.255.138.213", 1883, "lucnv", "lucnv", new List<string> { "EMEC/RFSPIDER/HES" }, Guid.NewGuid().ToString());//
+                MqttClientRepository.client = repository.Create("222.255.138.213", 1883, "lucnv", "lucnv", new List<string> { "REQUEST/CPC/PC01/#", "REQUEST/CPC/PC02/#", "REQUEST/CPC/PC03/#"
+                ,"REQUEST/CPC/PP/#", "REQUEST/CPC/PC05/#", "REQUEST/CPC/PC06/#","REQUEST/CPC/PC07/#", "REQUEST/CPC/PC08/#", "REQUEST/CPC/PQ/#"
+                , "REQUEST/CPC/PC10/#","REQUEST/CPC/PC11/#", "REQUEST/CPC/PC12/#", "REQUEST/CPC/PC13/#"}, Guid.NewGuid().ToString());//
             }
         }
 

@@ -8,6 +8,7 @@ namespace APP_KTRA_ROUTER.Global
     public class Config 
     {
         public static string URL = "";
+        public static string TOPIC = "topic";
         public static string User = "User";
         public static string Password = "Password";
         public static string Token { get; set; }

@@ -30,6 +30,7 @@
     <PackageReference Include="Syncfusion.Xamarin.SfMaskedEdit" Version="18.2.0.55" />
     <PackageReference Include="Syncfusion.Xamarin.SfNumericTextBox" Version="18.2.0.55" />
     <PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="18.2.0.55" />
+    <PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="18.2.0.55" />
     <PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="18.2.0.55" />  
     <PackageReference Include="Xam.Plugin.Connectivity" Version="3.2.0" />
     <PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
@@ -48,6 +49,12 @@
     </Compile>
     <Compile Update="Views\DSKiemDinhBaoHanh.xaml.cs">
       <DependentUpon>DSKiemDinhBaoHanh.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\LichSuModem.xaml.cs">
+      <DependentUpon>LichSuModem.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ThayTheModem.xaml.cs">
+      <DependentUpon>ThayTheModem.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\ThietBiDenHanKiemDinhTI.xaml.cs">
       <DependentUpon>ThietBiDenHanKiemDinhTI.xaml</DependentUpon>

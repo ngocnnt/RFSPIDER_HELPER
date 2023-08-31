@@ -31,6 +31,7 @@ namespace APP_KTRA_ROUTER.Views
         Save_PathReposity savepath { get; set; }
         KiemTraViewModel viewModel;
         ObservableCollection<DcuMqttResp> lstResult = new ObservableCollection<DcuMqttResp>();
+        MqttClientRepository repository = new MqttClientRepository();
         public Ktra_Khac()
         {
             InitializeComponent();
@@ -40,6 +41,7 @@ namespace APP_KTRA_ROUTER.Views
             }
             savepath = new Save_PathReposity(App.gCS_Dbcontext);
             BindingContext = viewModel = new KiemTraViewModel();
+
             Config.messagingCenter.Subscribe<SubscribeCallback, DcuMqttResp>(this, "MQTT", (obj, item) =>
             {
                 Device.BeginInvokeOnMainThread(() => {
@@ -129,8 +131,14 @@ namespace APP_KTRA_ROUTER.Views
                 lstResult.Clear();
                 //string path = cbPath.Text.Split(':')[0];
                 //if (path != "") path = path + ";" + idCongTo.Text.Trim();
-                DcuMqttReq dcuMqtt = new DcuMqttReq { DcuID = Convert.ToUInt32(viewModel.SelectItemTram.ID_DCU), MaDviQly = viewModel.SelectItemDonVi.MA_DON_VI, MaTram = viewModel.SelectItemTram.MA_TRAM, TenDangNhap = Preferences.Get(Config.User, ""), MeterID = idCongTo.Text.Trim(), Path = cbPath.Text, Type = cbchungloai.Text, TypeReq= "Disco" };
-                MqttClientRepository.PublibMessage("EMEC/RFSPIDER/APP", JsonConvert.SerializeObject(dcuMqtt));
+
+
+                string _madvql = viewModel.SelectItemDonVi.MA_DON_VI.Substring(0, 2) == "PC" ? viewModel.SelectItemDonVi.MA_DON_VI.Substring(0, 4) : viewModel.SelectItemDonVi.MA_DON_VI.Substring(0, 2);
+                string topic = "RESPOND/CPC/" + _madvql + "/" + viewModel.SelectItemDonVi.MA_DON_VI + "/" + viewModel.SelectItemTram.MA_TRAM;
+                MqttClientRepository.client = repository.Create("222.255.138.213", 1883, "lucnv", "lucnv", new List<string> { topic }, Guid.NewGuid().ToString());//
+
+                DcuMqttReq dcuMqtt = new DcuMqttReq { DcuID = Convert.ToUInt32(viewModel.SelectItemTram.ID_DCU), MaDviQly = viewModel.SelectItemDonVi.MA_DON_VI, MaTram = viewModel.SelectItemTram.MA_TRAM, TenDangNhap = Preferences.Get(Config.User, ""), MeterID = idCongTo.Text.Trim(), Path = cbPath.Text, Type = cbchungloai.Text, TypeReq= "Disco", Time = DateTime.Now.ToString("yyyyMMdd HHmmss") };
+                MqttClientRepository.PublibMessage(Preferences.Get(Config.TOPIC, "").Replace("MA_DVIQLY", viewModel.SelectItemDonVi.MA_DON_VI).Replace("MA_TRAM", viewModel.SelectItemTram.MA_TRAM), JsonConvert.SerializeObject(dcuMqtt));
                 DependencyService.Get<IMessage>().ShortAlert("Đã gửi yêu cầu. đang chờ phản hồi");
             }
             catch (Exception ex)
@@ -248,8 +256,13 @@ namespace APP_KTRA_ROUTER.Views
                 }             
                 string path = cbPath.Text.Split(':')[0];
                 if (path != "") path = path + ";" + idCongTo.Text.Trim();
-                DcuMqttReq dcuMqtt = new DcuMqttReq { DcuID = Convert.ToUInt32(viewModel.SelectItemTram.ID_DCU), MaDviQly = viewModel.SelectItemDonVi.MA_DON_VI, MaTram = viewModel.SelectItemTram.MA_TRAM, TenDangNhap = Preferences.Get(Config.User, ""), MeterID = idCongTo.Text.Trim(), Path = path, Type = cbchungloai.Text, TypeReq = "Stop" };
-                MqttClientRepository.PublibMessage("EMEC/RFSPIDER/APP", JsonConvert.SerializeObject(dcuMqtt));
+
+                string _madvql = viewModel.SelectItemDonVi.MA_DON_VI.Substring(0, 2) == "PC" ? viewModel.SelectItemDonVi.MA_DON_VI.Substring(0, 4) : viewModel.SelectItemDonVi.MA_DON_VI.Substring(0, 2);
+                string topic = "RESPOND/CPC/" + _madvql + "/" + viewModel.SelectItemDonVi.MA_DON_VI + "/" + viewModel.SelectItemTram.MA_TRAM;
+                MqttClientRepository.client = repository.Create("222.255.138.213", 1883, "lucnv", "lucnv", new List<string> { topic }, Guid.NewGuid().ToString());//
+
+                DcuMqttReq dcuMqtt = new DcuMqttReq { DcuID = Convert.ToUInt32(viewModel.SelectItemTram.ID_DCU), MaDviQly = viewModel.SelectItemDonVi.MA_DON_VI, MaTram = viewModel.SelectItemTram.MA_TRAM, TenDangNhap = Preferences.Get(Config.User, ""), MeterID = idCongTo.Text.Trim(), Path = path, Type = cbchungloai.Text, TypeReq = "Stop", Time = DateTime.Now.ToString("yyyyMMdd HHmmss") };
+                MqttClientRepository.PublibMessage(Preferences.Get(Config.TOPIC, "").Replace("MA_DVIQLY", _madvql), JsonConvert.SerializeObject(dcuMqtt));
                 DependencyService.Get<IMessage>().ShortAlert("Đã gửi yêu cầu ngưng đọc");
             }
             catch (Exception ex)
@@ -268,8 +281,10 @@ namespace APP_KTRA_ROUTER.Views
                     await new MessageBox("thông báo", "Vui lòng chọn trạm").Show();
                     return;
                 }
-                DcuMqttReq dcuMqtt = new DcuMqttReq { DcuID = Convert.ToUInt32(viewModel.SelectItemTram.ID_DCU), MaDviQly = viewModel.SelectItemDonVi.MA_DON_VI, MaTram = viewModel.SelectItemTram.MA_TRAM, TenDangNhap = Preferences.Get(Config.User, ""), MeterID = "", Path = "", Type = "", TypeReq = "ReadTram" };
-                MqttClientRepository.PublibMessage("EMEC/RFSPIDER/APP", JsonConvert.SerializeObject(dcuMqtt));
+                string _madvql = viewModel.SelectItemDonVi.MA_DON_VI.Substring(0, 2) == "PC" ? viewModel.SelectItemDonVi.MA_DON_VI.Substring(0, 4) : viewModel.SelectItemDonVi.MA_DON_VI.Substring(0, 2);
+
+                DcuMqttReq dcuMqtt = new DcuMqttReq { DcuID = Convert.ToUInt32(viewModel.SelectItemTram.ID_DCU), MaDviQly = viewModel.SelectItemDonVi.MA_DON_VI, MaTram = viewModel.SelectItemTram.MA_TRAM, TenDangNhap = Preferences.Get(Config.User, ""), MeterID = "", Path = "", Type = "", TypeReq = "ReadTram", Time = DateTime.Now.ToString("yyyyMMdd HHmmss") };
+                MqttClientRepository.PublibMessage(Preferences.Get(Config.TOPIC, "").Replace("MA_DVIQLY", _madvql), JsonConvert.SerializeObject(dcuMqtt));
                 DependencyService.Get<IMessage>().ShortAlert("Đã gửi yêu cầu đọc toàn trạm. vui lòng chờ kết quả trả về");
             }
             catch (Exception)

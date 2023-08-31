@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup" 
+             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+             xmlns:sfbutton="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms" xmlns:sfinputtext="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+             CloseWhenBackgroundIsClicked="False"
+             x:Class="APP_KTRA_ROUTER.Popup.MessageXacThucMatKhau">
+    <pages:PopupPage.Animation >
+        <animations:ScaleAnimation 
+            PositionIn="Center"
+            PositionOut="Center"
+            ScaleIn="1.2"
+            ScaleOut="0.8"
+            DurationIn="400"
+            DurationOut="300"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"/>
+    </pages:PopupPage.Animation>
+
+    <Frame CornerRadius="15"
+           Margin="20"
+               Padding="0"
+           HorizontalOptions="FillAndExpand"
+           VerticalOptions="Center">
+        <AbsoluteLayout HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand">
+            <Image AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="1,0,25,25"
+                   Margin="0,0,0,0">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer x:Name="imgClose" Command="{Binding CloseCommand}"></TapGestureRecognizer>
+                </Image.GestureRecognizers>
+            </Image>
+
+            <StackLayout HorizontalOptions="FillAndExpand" Spacing="20" Margin="20" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="1,1,1,1">
+
+                <Label x:Name="lblMessage" Style="{StaticResource styleLableGreen}" FontSize="20"  Text="Vui lòng xác thực lại mật khẩu" 
+                       Grid.Column="1" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center"/>
+
+                <sfinputtext:SfTextInputLayout                                              
+                                               LeadingViewPosition="Inside"
+                                               HeightRequest="70"
+                                               OutlineCornerRadius="30"   
+                                               BackgroundColor="Transparent"
+                                               UnfocusedColor="White"
+                                               FocusedColor="White"      
+                                               EnablePasswordVisibilityToggle="True"  
+                                               ContainerType="Outlined">
+                    <Entry x:Name="txtPassword" HorizontalOptions="FillAndExpand" Style="{StaticResource styleEntry}"  
+                           ClearButtonVisibility="WhileEditing"
+                           FontAttributes="Bold" 
+                           HorizontalTextAlignment="Center"
+                           IsPassword="True"
+                           FontSize="25"
+                           Keyboard="Numeric"
+                           Placeholder="Password"
+                           VerticalTextAlignment="Center"
+                           Text="{Binding Password , Mode=TwoWay}"
+                                       />
+                    
+                </sfinputtext:SfTextInputLayout>
+
+                <StackLayout Spacing="0" HorizontalOptions="FillAndExpand" 
+                         VerticalOptions="FillAndExpand" 
+                         Orientation="Horizontal"                        
+                         >
+                    <sfbutton:SfButton  Grid.Column="0" 
+                                        x:Name="btnOK" 
+                                        Text="OK" FontSize="20" FontAttributes="Bold"  
+                                        ImageSource="ok.png" 
+                                        Command="{Binding XacThucCommand}"
+                                        HorizontalOptions="FillAndExpand" 
+                                        BackgroundColor="#E10555" TextColor="White" 
+                                        HeightRequest="50">
+                    </sfbutton:SfButton>
+                </StackLayout>
+
+            </StackLayout>
+        </AbsoluteLayout>
+
+    </Frame>
+</pages:PopupPage>

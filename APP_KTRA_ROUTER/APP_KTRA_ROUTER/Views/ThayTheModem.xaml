@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ListCollection="clr-namespace:System.Collections.Generic;assembly=netstandard"
+             xmlns:sfbutton="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms" 
+             xmlns:sfcombox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms" 
+             xmlns:sfinputtext="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+             xmlns:sfpicker="clr-namespace:Syncfusion.XForms.Pickers;assembly=Syncfusion.SfPicker.XForms"
+             xmlns:sfPopup="clr-namespace:Syncfusion.XForms.PopupLayout;assembly=Syncfusion.SfPopupLayout.XForms"
+             xmlns:sfGrid="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms" 
+             xmlns:button="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms" 
+             xmlns:local="clr-namespace:APP_KTRA_ROUTER.ViewModels" xmlns:local1="clr-namespace:APP_KTRA_ROUTER.Views"
+             mc:Ignorable="d"
+             BackgroundColor="White"
+             Style="{StaticResource ParentBackgroup}"
+             Title="Thay thế modem trên EVNHES"
+             x:Class="APP_KTRA_ROUTER.Views.ThayTheModem">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local1:Dark x:Key="dark" />
+        </ResourceDictionary>
+
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="MenuItem" Order="Secondary" Text="Lịch sử" Priority="1" Clicked="MenuItem_Clicked" />
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+
+        <StackLayout BackgroundColor="White">
+            <Grid x:Name="myGrid" RowDefinitions="50,60,80" BackgroundColor="White">
+                <sfinputtext:SfTextInputLayout Hint="IMEI cũ" x:Name="IMEICu"
+                                               Grid.Row="0"
+                                               HeightRequest="50"
+                                               LeadingViewPosition="Inside"
+                                               ContainerType="Filled">
+                    <Entry HorizontalOptions="FillAndExpand"   x:Name="IMEITextCu" Keyboard="Numeric" FontSize="20" FontAttributes="Bold" 
+                           Style="{StaticResource styleSearch}"
+                           />
+
+                    <sfinputtext:SfTextInputLayout.TrailingView>
+                        <sfbutton:SfButton Text="Quét" x:Name="scanIMEIBtnCu" Clicked="scanIMEIBtn_ClickedAsync" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                               FontAttributes="Bold"
+                               CornerRadius="3"
+                               FontSize="24"
+                               HeightRequest="50" WidthRequest="100"
+                               BackgroundColor="#149C62"
+                               >
+                        </sfbutton:SfButton>
+                    </sfinputtext:SfTextInputLayout.TrailingView>
+                </sfinputtext:SfTextInputLayout>
+
+                <sfinputtext:SfTextInputLayout Hint="IMEI mới" x:Name="IMEIMoi" Margin="0,7,0,0"
+                                               Grid.Row="1"
+                                               HeightRequest="50"
+                                               LeadingViewPosition="Inside"
+                                               ContainerType="Filled">
+                    <Entry HorizontalOptions="FillAndExpand"   x:Name="IMEITextMoi" Keyboard="Numeric" FontSize="20" FontAttributes="Bold" 
+                           Style="{StaticResource styleSearch}"
+                           />
+
+                    <sfinputtext:SfTextInputLayout.TrailingView>
+                        <sfbutton:SfButton Text="Quét" x:Name="scanIMEIBtnMoi" Clicked="scanIMEIBtnMoi_Clicked" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                               FontAttributes="Bold"
+                               CornerRadius="3"
+                               FontSize="24"
+                               HeightRequest="50" WidthRequest="100"
+                               BackgroundColor="#149C62"
+                               >
+                        </sfbutton:SfButton>
+                    </sfinputtext:SfTextInputLayout.TrailingView>
+                </sfinputtext:SfTextInputLayout>
+                
+                
+                <StackLayout Grid.Row="2" VerticalOptions="Fill" Padding="10,5,10,5" Margin="20,10,20,10">
+                    <sfbutton:SfButton Text="Thay thế" x:Name="btnThayThe"                  
+                    BackgroundColor="ForestGreen"                   
+                    Clicked="btnThayThe_Clicked"
+                    TextColor="White"
+                    FontSize="Large"/>
+                </StackLayout>
+
+            </Grid>
+
+            
+        </StackLayout>
+
+
+
+    </ContentPage.Content>
+</ContentPage>

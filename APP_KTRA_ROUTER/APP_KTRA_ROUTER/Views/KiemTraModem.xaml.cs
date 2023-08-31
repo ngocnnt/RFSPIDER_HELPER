@@ -47,9 +47,14 @@ namespace APP_KTRA_ROUTER.Views
             public string countConnect { get; set; }
             public string ipServer { get; set; }
         }
-
+        public class MqttRE4G
+        {
+            public string ACTIVE { get; set; }
+            public string STATUS { get; set; }
+            public string CSQ { get; set; }
+            public string LASTTIMECONNECTED { get; set; }
+        }
         public KiemTraModem()
-
         {
             InitializeComponent();
         }
@@ -143,42 +148,66 @@ namespace APP_KTRA_ROUTER.Views
             {
                 await Device.InvokeOnMainThreadAsync(() =>
                 {
-                    var root = JsonConvert.DeserializeObject<MqttRE>(value);
-                    if (root.active.ToString().ToUpper() == "ACTIVE")
+                    if (IMEIText.Text.Substring(0, 2) == "86")
                     {
-                        mqttEntry.Text = "";
-                        mqttEntry.Text += "Trạng thái khai báo: " + root.active.ToString() + Environment.NewLine;
-                        mqttEntry.Text += "Trạng thái Modem: " + root.status.ToString() + Environment.NewLine;
-                        //mqttEntry.Text += "timeDisconnect: " + root.timeDisconnect.ToString() + Environment.NewLine;
-                        mqttEntry.Text += "Thời gian kết nối gần nhất: " + root.timeConnect.ToString() + Environment.NewLine;
-                        mqttEntry.Text += "Ip Modem: " + root.IpModem.ToString();
-                        if (root.IpModem != null && root.IpModem.ToString() != "")
-                            switch (root.IpModem.ToString().Split('.')[0])
+                        value = value.Substring(value.IndexOf('{')).Replace("SIM SIGNAL(CSQ)", "CSQ").Replace("LAST TIME CONNECTED", "LASTTIMECONNECTED");
+                        var root = JsonConvert.DeserializeObject<MqttRE4G>(value);
+                        if (root.ACTIVE.ToString().ToUpper() == "ACTIVE")
+                        {
+                            mqttEntry.Text = "";
+                            mqttEntry.Text += "Trạng thái khai báo: " + root.ACTIVE.ToString() + Environment.NewLine;
+                            mqttEntry.Text += "Trạng thái Modem: " + root.STATUS.ToString() + Environment.NewLine;
+                            //mqttEntry.Text += "timeDisconnect: " + root.timeDisconnect.ToString() + Environment.NewLine;
+                            mqttEntry.Text += "Thời gian kết nối gần nhất: " + root.LASTTIMECONNECTED.ToString() + Environment.NewLine;                            
+                            mqttEntry.Text += "CSQ: " + (Int32.Parse(root.CSQ.ToString())/100.0).ToString() + Environment.NewLine;
+                        }
+                        else
+                        {
+                            if (!mqttEntry.Text.ToLower().Contains("trạng thái khai báo: active"))
                             {
-                                case "113":
-                                case "116":
-                                case "117":
-                                    mqttEntry.Text += " (Vinaphone)" + Environment.NewLine;
-                                    break;
-                                case "59":
-                                case "42":
-                                    mqttEntry.Text += " (Mobifone)" + Environment.NewLine;
-                                    break;
-                                case "27":
-                                case "171":
-                                    mqttEntry.Text += " (Viettel)" + Environment.NewLine;
-                                    break;
+                                mqttEntry.Text = "Vui lòng kiểm tra lại IMEI hoặc khai báo IMEI trên EVNHES";
                             }
-                        else mqttEntry.Text += Environment.NewLine;
-                        mqttEntry.Text += "CSQ: " + root.csq.ToString() + Environment.NewLine;
-                        mqttEntry.Text += "Số lần mất kết nối: " + root.countConnect.ToString() + Environment.NewLine;
-                        mqttEntry.Text += "Ip Server: " + root.ipServer.ToString() + Environment.NewLine;
+                        }
                     }
                     else
                     {
-                        if (!mqttEntry.Text.ToLower().Contains("trạng thái khai báo: active"))
+                        var root = JsonConvert.DeserializeObject<MqttRE>(value);
+                        if (root.active.ToString().ToUpper() == "ACTIVE")
                         {
-                            mqttEntry.Text = "Vui lòng kiểm tra lại IMEI hoặc khai báo IMEI trên EVNHES";
+                            mqttEntry.Text = "";
+                            mqttEntry.Text += "Trạng thái khai báo: " + root.active.ToString() + Environment.NewLine;
+                            mqttEntry.Text += "Trạng thái Modem: " + root.status.ToString() + Environment.NewLine;
+                            //mqttEntry.Text += "timeDisconnect: " + root.timeDisconnect.ToString() + Environment.NewLine;
+                            mqttEntry.Text += "Thời gian kết nối gần nhất: " + root.timeConnect.ToString() + Environment.NewLine;
+                            mqttEntry.Text += "Ip Modem: " + root.IpModem.ToString();
+                            if (root.IpModem != null && root.IpModem.ToString() != "")
+                                switch (root.IpModem.ToString().Split('.')[0])
+                                {
+                                    case "113":
+                                    case "116":
+                                    case "117":
+                                        mqttEntry.Text += " (Vinaphone)" + Environment.NewLine;
+                                        break;
+                                    case "59":
+                                    case "42":
+                                        mqttEntry.Text += " (Mobifone)" + Environment.NewLine;
+                                        break;
+                                    case "27":
+                                    case "171":
+                                        mqttEntry.Text += " (Viettel)" + Environment.NewLine;
+                                        break;
+                                }
+                            else mqttEntry.Text += Environment.NewLine;
+                            mqttEntry.Text += "CSQ: " + root.csq.ToString() + Environment.NewLine;
+                            mqttEntry.Text += "Số lần mất kết nối: " + root.countConnect.ToString() + Environment.NewLine;
+                            mqttEntry.Text += "Ip Server: " + root.ipServer.ToString() + Environment.NewLine;
+                        }
+                        else
+                        {
+                            if (!mqttEntry.Text.ToLower().Contains("trạng thái khai báo: active"))
+                            {
+                                mqttEntry.Text = "Vui lòng kiểm tra lại IMEI hoặc khai báo IMEI trên EVNHES";
+                            }
                         }
                     }
                 });

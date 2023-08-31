@@ -61,6 +61,7 @@ namespace APP_KTRA_ROUTER.Views
                 {
                     DonVi dv = lstDonVi[com.SelectedIndex];
                     Preferences.Set(Config.DonVi, dv.MA_DON_VI);
+                    Preferences.Set(Config.TOPIC, "REQUEST/CPC/"+ dv.MA_DON_VI);
                 }    
                
             }

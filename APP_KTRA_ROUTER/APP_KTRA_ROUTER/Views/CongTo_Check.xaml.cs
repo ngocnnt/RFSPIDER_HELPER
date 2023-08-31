@@ -21,7 +21,8 @@ namespace APP_KTRA_ROUTER.Views
        public List<DcuMqttResp> lstResult = new List<DcuMqttResp>();
         DCU_ROUTER DCU_ { get; set; }
         PATH path { get; set; }
-        string _matram, _madonvi;
+        string _madvql,_matram, _madonvi;
+        MqttClientRepository repository = new MqttClientRepository();
         public CongTo_Check( string matram, string madonvi, DCU_ROUTER dcu)
         {
             InitializeComponent();
@@ -29,6 +30,11 @@ namespace APP_KTRA_ROUTER.Views
             _madonvi = madonvi;
             _matram = matram;
             Title ="Công tơ: "+  dcu.MeterID;
+
+            _madvql = madonvi.Substring(0, 2) == "PC" ? madonvi.Substring(0, 4) : madonvi.Substring(0, 2);
+            string topic = "RESPOND/CPC/" + _madvql + "/" + madonvi + "/" + matram;
+            MqttClientRepository.client = repository.Create("222.255.138.213", 1883, "lucnv", "lucnv", new List<string> { topic }, Guid.NewGuid().ToString());//
+
             MessagingCenter.Subscribe<SubscribeCallback, DcuMqttResp>(this, "MQTT", (obj, item) =>
             {
                 Device.BeginInvokeOnMainThread(() => {
@@ -94,8 +100,8 @@ namespace APP_KTRA_ROUTER.Views
                 if (cbPath.Text == null)
                 {
 
-                    DcuMqttReq dcuMqtt = new DcuMqttReq { DcuID = Convert.ToUInt32(DCU_.DcuID), MaDviQly = _madonvi, MaTram = _matram, TenDangNhap = Preferences.Get(Config.User, ""), MeterID = DCU_.MeterID, Path = "", Type = DCU_.Type, TypeReq = typereq };
-                    MqttClientRepository.PublibMessage("EMEC/RFSPIDER/APP", JsonConvert.SerializeObject(dcuMqtt));
+                    DcuMqttReq dcuMqtt = new DcuMqttReq { DcuID = Convert.ToUInt32(DCU_.DcuID), MaDviQly = _madonvi, MaTram = _matram, TenDangNhap = Preferences.Get(Config.User, ""), MeterID = DCU_.MeterID, Path = "", Type = DCU_.Type, TypeReq = typereq, Time = DateTime.Now.ToString("yyyyMMdd HHmmss") };
+                    MqttClientRepository.PublibMessage(Preferences.Get(Config.TOPIC, "").Replace("MA_DVIQLY", _madvql), JsonConvert.SerializeObject(dcuMqtt));
                     lblResult.Text = "Đã gửi bản tin yêu cầu. đang chờ phản hồi" + Environment.NewLine;
                     Send.IsEnabled = false;
                     Send.BackgroundColor = Color.Gray;
@@ -104,8 +110,8 @@ namespace APP_KTRA_ROUTER.Views
                 {
                     try
                     {
-                        DcuMqttReq dcuMqtt = new DcuMqttReq { DcuID = Convert.ToUInt32(DCU_.DcuID), MaDviQly = _madonvi, MaTram = _matram, TenDangNhap = Preferences.Get(Config.User, ""), MeterID = DCU_.MeterID, Path = cbPath.SelectedValue.ToString(), Type = DCU_.Type, TypeReq = typereq };
-                        MqttClientRepository.PublibMessage("EMEC/RFSPIDER/APP", JsonConvert.SerializeObject(dcuMqtt));
+                        DcuMqttReq dcuMqtt = new DcuMqttReq { DcuID = Convert.ToUInt32(DCU_.DcuID), MaDviQly = _madonvi, MaTram = _matram, TenDangNhap = Preferences.Get(Config.User, ""), MeterID = DCU_.MeterID, Path = cbPath.SelectedValue.ToString(), Type = DCU_.Type, TypeReq = typereq, Time = DateTime.Now.ToString("yyyyMMdd HHmmss") };
+                        MqttClientRepository.PublibMessage(Preferences.Get(Config.TOPIC, "").Replace("MA_DVIQLY", _madvql), JsonConvert.SerializeObject(dcuMqtt));
                         lblResult.Text = "Đã gửi bản tin yêu cầu. đang chờ phản hồi" + Environment.NewLine;
                         Send.IsEnabled = false;
                         Send.BackgroundColor = Color.Gray;
@@ -113,8 +119,8 @@ namespace APP_KTRA_ROUTER.Views
                     catch (Exception)
                     {
 
-                        DcuMqttReq dcuMqtt = new DcuMqttReq { DcuID = Convert.ToUInt32(DCU_.DcuID), MaDviQly = _madonvi, MaTram = _matram, TenDangNhap = Preferences.Get(Config.User, ""), MeterID = DCU_.MeterID, Path = "", Type = DCU_.Type, TypeReq = typereq };
-                        MqttClientRepository.PublibMessage("EMEC/RFSPIDER/APP", JsonConvert.SerializeObject(dcuMqtt));
+                        DcuMqttReq dcuMqtt = new DcuMqttReq { DcuID = Convert.ToUInt32(DCU_.DcuID), MaDviQly = _madonvi, MaTram = _matram, TenDangNhap = Preferences.Get(Config.User, ""), MeterID = DCU_.MeterID, Path = "", Type = DCU_.Type, TypeReq = typereq, Time = DateTime.Now.ToString("yyyyMMdd HHmmss") };
+                        MqttClientRepository.PublibMessage(Preferences.Get(Config.TOPIC, "").Replace("MA_DVIQLY", _madvql), JsonConvert.SerializeObject(dcuMqtt));
                         lblResult.Text = "Đã gửi bản tin yêu cầu. đang chờ phản hồi" + Environment.NewLine;
                         Send.IsEnabled = false;
                         Send.BackgroundColor = Color.Gray;
@@ -124,8 +130,8 @@ namespace APP_KTRA_ROUTER.Views
                 else
 
                 {
-                    DcuMqttReq dcuMqtt = new DcuMqttReq { DcuID = Convert.ToUInt32(DCU_.DcuID), MaDviQly = _madonvi, MaTram = _matram, TenDangNhap = Preferences.Get(Config.User, ""), MeterID = DCU_.MeterID, Path = cbPath.Text, Type = DCU_.Type, TypeReq = typereq };
-                    MqttClientRepository.PublibMessage("EMEC/RFSPIDER/APP", JsonConvert.SerializeObject(dcuMqtt));
+                    DcuMqttReq dcuMqtt = new DcuMqttReq { DcuID = Convert.ToUInt32(DCU_.DcuID), MaDviQly = _madonvi, MaTram = _matram, TenDangNhap = Preferences.Get(Config.User, ""), MeterID = DCU_.MeterID, Path = cbPath.Text, Type = DCU_.Type, TypeReq = typereq, Time = DateTime.Now.ToString("yyyyMMdd HHmmss") };
+                    MqttClientRepository.PublibMessage(Preferences.Get(Config.TOPIC, "").Replace("MA_DVIQLY", _madvql), JsonConvert.SerializeObject(dcuMqtt));
                     lblResult.Text = "Đã gửi bản tin yêu cầu. đang chờ phản hồi" + Environment.NewLine;
                     Send.IsEnabled = false;
                     Send.BackgroundColor = Color.Gray;

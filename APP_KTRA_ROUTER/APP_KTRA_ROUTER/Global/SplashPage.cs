@@ -110,8 +110,8 @@ namespace APP_KTRA_ROUTER.Global
                 try
                 {
                     await MqttClientRepository.client.ReconnectAsync();
-                    if (Device.RuntimePlatform != Device.iOS )
-                    await new MessageBox("Thông Báo", "Bạn đã kết nối lại với server").Show();
+                    //if (Device.RuntimePlatform != Device.iOS )
+                    //await new MessageBox("Thông Báo", "Bạn đã kết nối lại với server").Show();
                 }
                 catch 
                 {

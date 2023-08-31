@@ -166,7 +166,7 @@ namespace APP_KTRA_ROUTER.Interface
             _sessionPayedTopic = sessionPayedTopic;
         }
 
-        public  Task HandleApplicationMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs e)
+        public Task HandleApplicationMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs e)
         {
             string message = Encoding.UTF8.GetString(e.ApplicationMessage.Payload);
             foreach (var topic in _sessionPayedTopic)

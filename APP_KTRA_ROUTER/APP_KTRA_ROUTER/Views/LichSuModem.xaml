@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:sfGrid="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms" 
+             xmlns:local1="clr-namespace:APP_KTRA_ROUTER.Views"
+             mc:Ignorable="d"
+             BackgroundColor="White"
+             Style="{StaticResource ParentBackgroup}"
+             Title="Lịch sử thay thế modem trên EVNHES"
+             x:Class="APP_KTRA_ROUTER.Views.LichSuModem">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local1:Dark x:Key="dark" />
+        </ResourceDictionary>
+
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+
+        <StackLayout BackgroundColor="White">
+            <Grid x:Name="mGridLayout" AbsoluteLayout.LayoutFlags="All" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
+                         AbsoluteLayout.LayoutBounds="1,1,1,1" >
+                <sfGrid:SfDataGrid x:Name="gridLichSu"
+                                   ItemsSource="{Binding DSLichSu,Mode=TwoWay}"
+                                   Style="{StaticResource styleDataGrid}"
+                                   GridStyle="{StaticResource dark}"
+                >
+                    <sfGrid:SfDataGrid.Columns >
+                        <sfGrid:GridTextColumn MappingName="MA_DDO" HeaderText="Mã điểm đo" HeaderFontAttribute="Bold"   HeaderCellTextSize="16"  MinimumWidth="150"/>
+                        <sfGrid:GridTextColumn MappingName="IMEI_CU" HeaderText="IMEI cũ" HeaderFontAttribute="Bold"   HeaderCellTextSize="16" MinimumWidth="140">
+                        </sfGrid:GridTextColumn>
+                        <sfGrid:GridTextColumn MappingName="IMEI_MOI" HeaderText="IMEI mới" HeaderFontAttribute="Bold"   HeaderCellTextSize="16" MinimumWidth="140">
+                        </sfGrid:GridTextColumn>
+                        <sfGrid:GridTextColumn MappingName="NGAY_SUA" HeaderText="Ngày thay thế" HeaderFontAttribute="Bold"   HeaderCellTextSize="16" MinimumWidth="200">
+                        </sfGrid:GridTextColumn>
+                    </sfGrid:SfDataGrid.Columns>
+                </sfGrid:SfDataGrid>
+            </Grid>
+
+
+        </StackLayout>
+
+
+
+    </ContentPage.Content>
+</ContentPage>

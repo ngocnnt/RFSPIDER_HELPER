@@ -388,7 +388,7 @@ namespace APP_KTRA_ROUTER.Views
 
         private async void btnThayThe_Clicked(object sender, EventArgs e)
         {
-            await new MessageBox("thông báo", Xamarin.Essentials.Preferences.Get(Config.maDonVi, "")).Show();
+            await new MessageBox("thông báo", "Chức năng thay thế tạm thời không thể sử dụng.").Show();
             return;
             try
             {
