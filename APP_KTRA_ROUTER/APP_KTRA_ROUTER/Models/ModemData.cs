@@ -52,6 +52,8 @@ namespace APP_KTRA_ROUTER.Models
         public string IMEICu { get; set; }
         public string IMEIMoi { get; set; }
         public string NguoiSua { get; set; }
+        public bool ChuyenMD { get; set; }
+        public int LoaiThay { get; set; }
     }
     public class HISTORY_INFO
     {
@@ -59,5 +61,59 @@ namespace APP_KTRA_ROUTER.Models
         public string IMEI_CU { get; set; }
         public string IMEI_MOI { get; set; }
         public DateTime NGAY_SUA { get; set; }
+        public bool CHUYEN_MAYDOC { get; set; }
+
+    }
+    public class INFO_CONGTO
+    {
+        public string ASSETID { get; set; }
+        public string ASSETID_PARENT { get; set; }
+        public string ASSETID_ORG { get; set; }
+        public string ASSETDESC { get; set; }
+        public int ASSETORD { get; set; }
+        public string SITEID { get; set; }
+        public string CATEGORYID { get; set; }
+        public string TYPEID { get; set; }
+        public string MANDEPTIDLIST { get; set; }
+        public string USESTATUS_LAST_ID { get; set; }
+        public DateTime USESTATUS_LAST_DTIME { get; set; }
+        public string SERIALNUM { get; set; }
+        public string P_MANUFACTURERID { get; set; }
+        public string P_VENDORID { get; set; }
+        public DateTime P_INSTALLDATE { get; set; }
+        public double P_PRICE { get; set; }
+        public string P_PRICEUOM { get; set; }
+        public double P_PRICE_INC_ALL_CHILD { get; set; }
+        public int PRIORITY { get; set; }
+        public string USER_CR_ID { get; set; }
+        public DateTime USER_CR_DTIME { get; set; }
+        public string USER_MDF_ID { get; set; }
+        public DateTime USER_MDF_DTIME { get; set; }
+        public string USESTATUS_UPDATE_ID { get; set; }
+        public string ASSETIDSORT { get; set; }
+        public string ORGID { get; set; }
+        public string ULEVELID { get; set; }
+        public string ASSETNOTE { get; set; }
+        public DateTime DATEOPRATOIN { get; set; }
+        public string ASSETID_LINK { get; set; }
+        public string ASSETID_LINK1 { get; set; }
+        public string ASSETID_LINK2 { get; set; }
+        public string ASSETID_LINK3 { get; set; }
+        public int DATEMANUFACTURE { get; set; }
+        public string NATIONALFACT { get; set; }
+        public string OWNER { get; set; }
+        public string OWNER_LAST { get; set; }
+        public DateTime OWNER_LAST_DTIME { get; set; }
+        public string URL { get; set; }
+        public int ASSETLEVEL { get; set; }
+        public string ASSETINFO { get; set; }
+        public string ASSETID_FMIS { get; set; }
+        public string ASSETID_CMIS { get; set; }
+    }
+    public class USER_INFO
+    {
+        public string USER_NAME { get; set; }
+        public string DON_VI { get; set; }
+        public DateTime NGAY_TẠO { get; set; }
     }
 }

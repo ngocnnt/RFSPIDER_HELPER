@@ -16,6 +16,7 @@ namespace APP_KTRA_ROUTER.ViewModels
    public class LichSuViewModel : BaseViewModel
     {
         public string URL_API = "https://smart.cpc.vn/DSPM_Api/";
+        public string loai_thay = "";
         ObservableCollection<HISTORY_INFO> _dSLichSu;
         public ObservableCollection<HISTORY_INFO> DSLichSu
         {
@@ -27,15 +28,35 @@ namespace APP_KTRA_ROUTER.ViewModels
             }
         }
 
-        public LichSuViewModel() 
+        bool _isHide;
+        public bool isHide { get => _isHide; set => SetProperty(ref _isHide, value); }
+        string _stringCu;
+        public string stringCu { get => _stringCu; set => SetProperty(ref _stringCu, value); }
+        string _stringMoi;
+        public string stringMoi { get => _stringMoi; set => SetProperty(ref _stringMoi, value); }
+
+        public LichSuViewModel(int loai) 
         {
+            loai_thay = loai.ToString();
+            if (loai == 1)
+            {
+                stringCu = "IMEI cũ";
+                stringMoi = "IMEI mới";
+                isHide = false;
+            }   
+            else
+            {
+                stringCu = "Serial cũ";
+                stringMoi = "Serial mới";
+                isHide = true;
+            }
             LoadData();
         }
 
         private async void LoadData()
         {
             await DependencyService.Get<IProcessLoader>().Show("Vui lòng đợi...");
-            var _json = Config.client.GetStringAsync(URL_API + "api/modem/getHistory?nguoi_sua=" + Preferences.Get(Config.User, "") + "&tu_ngay=" + "1/1/2023" + "&den_ngay=" + "1/1/2030").Result;
+            var _json = Config.client.GetStringAsync(URL_API + "api/modem/getHistory?nguoi_sua=" + Preferences.Get(Config.User, "") + "&tu_ngay=" + "1/1/2023" + "&den_ngay=" + "1/1/2030" + "&loai_thay=" + loai_thay).Result;
             _json = _json.Replace("\\r\\n", "").Replace("\\", "");
             if (_json.Contains("[]") == false)
             {

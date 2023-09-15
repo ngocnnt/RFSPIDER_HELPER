@@ -84,7 +84,13 @@
         <ShellContent Title="Kiểm tra trạng thái modem trên EVNHES" Icon="modem.png" IsTabStop="True" ContentTemplate="{DataTemplate local:KiemTraModem }" />
     </FlyoutItem>
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" >
-        <ShellContent Title="Thay thế IMEI modem trên EVNHES" Icon="changeIMEI.png" IsTabStop="True" ContentTemplate="{DataTemplate local:ThayTheModem }" />
+        <ShellContent Title="Thay thế trên EVNHES" Icon="verif.png" IsTabStop="True" ContentTemplate="{DataTemplate local:Home}" />
+    </FlyoutItem>
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" >
+        <ShellContent Title="-- IMEI modem" IsTabStop="True" ContentTemplate="{DataTemplate local:ThayTheModem }" />
+    </FlyoutItem>
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" >
+        <ShellContent Title="-- Serial Công tơ" IsTabStop="True" ContentTemplate="{DataTemplate local:ThayTheCongTo }" />
     </FlyoutItem>
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" >
         <ShellContent Title="Cài đặt" Icon="setting.png" IsTabStop="True" ContentTemplate="{DataTemplate local:Setting }" />

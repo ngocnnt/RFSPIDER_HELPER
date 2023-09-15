@@ -53,6 +53,9 @@
     <Compile Update="Views\LichSuModem.xaml.cs">
       <DependentUpon>LichSuModem.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\ThayTheCongTo.xaml.cs">
+      <DependentUpon>ThayTheCongTo.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\ThayTheModem.xaml.cs">
       <DependentUpon>ThayTheModem.xaml</DependentUpon>
     </Compile>

@@ -23,10 +23,10 @@ using System.Runtime.CompilerServices;
 namespace APP_KTRA_ROUTER.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ThayTheModem : ContentPage
+    public partial class ThayTheCongTo : ContentPage
     {
         public string URL_API = "https://smart.cpc.vn/DSPM_Api/";
-        public ThayTheModem()
+        public ThayTheCongTo()
         {
             InitializeComponent();
         }
@@ -84,8 +84,6 @@ namespace APP_KTRA_ROUTER.Views
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     await Navigation.PopAsync();
-                    if (result.Text.Length == 16) IMEITextCu.Text = result.Text.Substring(0, 15);
-                    else IMEITextCu.Text = result.Text;
                 });
 
             };
@@ -100,8 +98,7 @@ namespace APP_KTRA_ROUTER.Views
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     await Navigation.PopAsync();
-                    if (result.Text.Length == 16) IMEITextMoi.Text = result.Text.Substring(0, 15);
-                    else IMEITextMoi.Text = result.Text;
+                    IMEITextMoi.Text = result.Text.PadLeft(12, '0');
                 });
 
             };
@@ -111,71 +108,62 @@ namespace APP_KTRA_ROUTER.Views
         {
             if (IMEITextCu.Text == null || IMEITextCu.Text == "")
             {
-                await new MessageBox("thông báo", "Vui lòng nhập hoặc quét mã IMEI cũ").Show();
+                await new MessageBox("thông báo", "Vui lòng nhập hoặc quét serial công tơ cũ").Show();
                 return;
             }
             if (IMEITextMoi.Text == null || IMEITextMoi.Text == "")
             {
-                await new MessageBox("thông báo", "Vui lòng nhập hoặc quét mã IMEI mới").Show();
+                await new MessageBox("thông báo", "Vui lòng nhập hoặc quét serial công tơ mới").Show();
                 return;
             }
-            if (IMEITextCu.Text.Length != 15)
-            {
-                await new MessageBox("thông báo", "Số IMEI cũ không đúng định dạng").Show();
-                return;
-            }
-            if (IMEITextMoi.Text.Length != 15)
-            {
-                await new MessageBox("thông báo", "Số IMEI mới không đúng định dạng").Show();
-                return;
-            }
+            IMEITextMoi.Text = IMEITextMoi.Text.PadLeft(12, '0');
             if (IMEITextMoi.Text == IMEITextCu.Text)
             {
-                await new MessageBox("thông báo", "Số IMEI mới không được trùng với số IMEI cũ").Show();
+                await new MessageBox("thông báo", "Số serial mới không được trùng với số serial cũ").Show();
                 return;
             }
             //var ok = await new MessageXacThucMatKhau().Show();
             //if (ok == Global.DialogReturn.OK)
             {
                 await DependencyService.Get<IProcessLoader>().Show("Vui lòng đợi...");
-                var _json = Config.client.GetStringAsync(URL_API + "api/modem/getInfoByImei?imei=" + IMEITextCu.Text).Result;
+                var _json = Config.client.GetStringAsync(URL_API + "api/modem/getInfoBySerial?serial=" + IMEITextCu.Text).Result;
                 _json = _json.Replace("\\r\\n", "").Replace("\\", "");
                 if ( _json.Contains("[]") == false)
                 {
                     Int32 from = _json.IndexOf("[");
                     Int32 to = _json.IndexOf("]");
                     string result = _json.Substring(from, to - from + 1);
-                    var response = JsonConvert.DeserializeObject<ObservableCollection<INFO_MODEM>>(result);
-                    if (response[0].OBJID == "")
+                    var response = JsonConvert.DeserializeObject<ObservableCollection<INFO_CONGTO>>(result);
+                    if (response[0].ASSETID == "")
                     {
                         await DependencyService.Get<IProcessLoader>().Hide();
-                        await new MessageBox("Thông Báo", "Không tìm thấy thông tin mã điểm đo của IMEI cũ").Show();
+                        await new MessageBox("Thông Báo", "Không tìm thấy thông tin mã điểm đo của số serial cũ").Show();
                     }
                     else
                     {
                         await DependencyService.Get<IProcessLoader>().Hide();
-                        var ok1 = await new MessageYESNO("Thông báo", "Anh chị có chắn chắn muốn thay IMEI " + IMEITextCu.Text + " của điểm đo " + response[0].OBJID + " bằng IMEI " + IMEITextMoi.Text + ((cbMayDoc.IsChecked == true) ? " và chuyển sang Máy đọc modem 4G của EMEC" : "") + " không?").Show();
+                        var ok1 = await new MessageYESNO("Thông báo", "Anh chị có chắn chắn muốn thay serial " + IMEITextCu.Text + " của điểm đo " + response[0].ASSETID + " bằng serial " + IMEITextMoi.Text + " không?").Show();
                         if (ok1 == DialogReturn.OK)
                         {
                             await DependencyService.Get<IProcessLoader>().Show("Vui lòng đợi...");
-                            var _json1 = Config.client.PostAsync(URL_API + "api/modem/updateImei?imei_cu=" + IMEITextCu.Text + "&imei_moi=" + IMEITextMoi.Text + "&ma_ddo=" + response[0].OBJID + "&may_doc=" + (bool)cbMayDoc.IsChecked, null).Result;
+                            var _json1 = Config.client.PostAsync(URL_API + "api/modem/updateSerial?serial_cu=" + IMEITextCu.Text + "&serial_moi=" + IMEITextMoi.Text + "&ma_ddo=" + response[0].ASSETID, null).Result;
                             var content = _json1.Content.ReadAsStringAsync().Result.Replace("\\r\\n", "").Replace("\\", "").ToLower();
                             if (content == "1")
                             {
                                 HISTORY req = new HISTORY();
-                                req.MaDDo = response[0].OBJID;
+                                req.MaDDo = response[0].ASSETID;
                                 req.IMEICu = IMEITextCu.Text;
                                 req.IMEIMoi = IMEITextMoi.Text;
                                 req.NguoiSua = Preferences.Get(Config.User, "");
-                                req.ChuyenMD = (bool)cbMayDoc.IsChecked;
-                                req.LoaiThay = 1;
+                                req.ChuyenMD = false;
+                                req.LoaiThay = 2;
                                 HttpContent httpcontent = new StringContent(JsonConvert.SerializeObject(req), Encoding.UTF8, "application/json");
                                 var _json2 = Config.client.PostAsync(URL_API + "api/modem/insertHistory", httpcontent).Result;
                                 //var content2 = _json2.Content.ReadAsStringAsync().Result.Replace("\\r\\n", "").Replace("\\", "").ToLower();
                                 //if (content == "1")
                                 {
                                     await DependencyService.Get<IProcessLoader>().Hide();
-                                    await new MessageBox("Thông Báo", "Thay thế IMEI thành công").Show();
+                                    await new MessageBox("Thông Báo", "Thay thế serial thành công").Show();
                                 }    
                             }
                             else
@@ -189,7 +177,7 @@ namespace APP_KTRA_ROUTER.Views
                 else
                 {
                     await DependencyService.Get<IProcessLoader>().Hide();
-                    await new MessageBox("Thông Báo", "Không tìm thấy thông tin IMEI cũ").Show();
+                    await new MessageBox("Thông Báo", "Không tìm thấy thông tin serial cũ").Show();
                 }
             }
         }
@@ -198,7 +186,7 @@ namespace APP_KTRA_ROUTER.Views
         {
             Device.BeginInvokeOnMainThread(() =>
             {  
-                Shell.Current.Navigation.PushAsync(new LichSuModem(1));
+                Shell.Current.Navigation.PushAsync(new LichSuModem(2));
             });
         }
     }

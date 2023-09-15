@@ -30,11 +30,13 @@
                 >
                     <sfGrid:SfDataGrid.Columns >
                         <sfGrid:GridTextColumn MappingName="MA_DDO" HeaderText="Mã điểm đo" HeaderFontAttribute="Bold"   HeaderCellTextSize="16"  MinimumWidth="150"/>
-                        <sfGrid:GridTextColumn MappingName="IMEI_CU" HeaderText="IMEI cũ" HeaderFontAttribute="Bold"   HeaderCellTextSize="16" MinimumWidth="140">
+                        <sfGrid:GridTextColumn MappingName="IMEI_CU" HeaderText="{Binding stringCu}" HeaderFontAttribute="Bold"   HeaderCellTextSize="16" MinimumWidth="140">
                         </sfGrid:GridTextColumn>
-                        <sfGrid:GridTextColumn MappingName="IMEI_MOI" HeaderText="IMEI mới" HeaderFontAttribute="Bold"   HeaderCellTextSize="16" MinimumWidth="140">
+                        <sfGrid:GridTextColumn MappingName="IMEI_MOI" HeaderText="{Binding stringMoi}" HeaderFontAttribute="Bold"   HeaderCellTextSize="16" MinimumWidth="140">
                         </sfGrid:GridTextColumn>
                         <sfGrid:GridTextColumn MappingName="NGAY_SUA" HeaderText="Ngày thay thế" HeaderFontAttribute="Bold"   HeaderCellTextSize="16" MinimumWidth="200">
+                        </sfGrid:GridTextColumn>
+                        <sfGrid:GridTextColumn IsHidden="{Binding isHide}" MappingName="CHUYEN_MAYDOC" HeaderText="Chuyển máy đọc" HeaderFontAttribute="Bold"   HeaderCellTextSize="16" MinimumWidth="50">
                         </sfGrid:GridTextColumn>
                     </sfGrid:SfDataGrid.Columns>
                 </sfGrid:SfDataGrid>

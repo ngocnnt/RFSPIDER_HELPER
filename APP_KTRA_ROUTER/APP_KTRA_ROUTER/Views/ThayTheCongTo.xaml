@@ -15,8 +15,8 @@
              mc:Ignorable="d"
              BackgroundColor="White"
              Style="{StaticResource ParentBackgroup}"
-             Title="Thay thế modem trên EVNHES"
-             x:Class="APP_KTRA_ROUTER.Views.ThayTheModem">
+             Title="Thay thế công tơ trên EVNHES"
+             x:Class="APP_KTRA_ROUTER.Views.ThayTheCongTo">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -32,8 +32,8 @@
     <ContentPage.Content>
 
         <StackLayout BackgroundColor="White">
-            <Grid x:Name="myGrid" RowDefinitions="50,70,40,80" BackgroundColor="White">
-                <sfinputtext:SfTextInputLayout Hint="IMEI cũ" x:Name="IMEICu"
+            <Grid x:Name="myGrid" RowDefinitions="50,60,80" BackgroundColor="White">
+                <sfinputtext:SfTextInputLayout Hint="Serial cũ" x:Name="IMEICu"
                                                Grid.Row="0"
                                                HeightRequest="50"
                                                LeadingViewPosition="Inside"
@@ -54,7 +54,7 @@
                     </sfinputtext:SfTextInputLayout.TrailingView>
                 </sfinputtext:SfTextInputLayout>
 
-                <sfinputtext:SfTextInputLayout Hint="IMEI mới" x:Name="IMEIMoi" Margin="0,7,0,0"
+                <sfinputtext:SfTextInputLayout Hint="Serial mới" x:Name="IMEIMoi" Margin="0,7,0,0"
                                                Grid.Row="1"
                                                HeightRequest="50"
                                                LeadingViewPosition="Inside"
@@ -75,9 +75,7 @@
                     </sfinputtext:SfTextInputLayout.TrailingView>
                 </sfinputtext:SfTextInputLayout>
 
-                <sfbutton:SfCheckBox x:Name="cbMayDoc" IsChecked="True" Text="Chuyển máy đọc modem 4G" Grid.Row="2"/>
-                
-                <StackLayout Grid.Row="3" VerticalOptions="Fill" Padding="10,5,10,5" Margin="20,10,20,10">
+                <StackLayout Grid.Row="2" VerticalOptions="Fill" Padding="10,5,10,5" Margin="20,10,20,10">
                     <sfbutton:SfButton Text="Thay thế" x:Name="btnThayThe"                  
                     BackgroundColor="ForestGreen"                   
                     Clicked="btnThayThe_Clicked"

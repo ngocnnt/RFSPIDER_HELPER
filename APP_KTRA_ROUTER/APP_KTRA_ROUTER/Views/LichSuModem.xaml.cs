@@ -27,10 +27,10 @@ namespace APP_KTRA_ROUTER.Views
     public partial class LichSuModem : ContentPage
     {
         LichSuViewModel viewModel;
-        public LichSuModem()
+        public LichSuModem(int loai)
         {
             InitializeComponent();
-            viewModel = new LichSuViewModel();
+            viewModel = new LichSuViewModel(loai);
             this.BindingContext = viewModel;
         }
         protected override void OnAppearing()

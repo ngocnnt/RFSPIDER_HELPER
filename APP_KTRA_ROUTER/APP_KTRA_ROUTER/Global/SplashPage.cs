@@ -79,12 +79,12 @@ namespace APP_KTRA_ROUTER.Global
                 //MqttClientRepository.client  = repository.Create("113.160.225.75", 1883, "lucnv", "lucnv", new List<string> { "RFSPIDER_RECEIVE" }, Guid.NewGuid().ToString ());
                
                 
-                if (Device.RuntimePlatform == Device.iOS)
-                {
-                    Preferences.Set(Config.User, "appios");
-                    App.Current.MainPage = new AppShell();
-                }
-                else
+                //if (Device.RuntimePlatform == Device.iOS)
+                //{
+                //    Preferences.Set(Config.User, "appios");
+                //    App.Current.MainPage = new AppShell();
+                //}
+                //else
                 {
                     var response = Config.client.GetStringAsync(Config.URL + "api/home/GetUserAD?username=" + Preferences.Get(Config.User, "1") + "&password=" + Preferences.Get(Config.Password, "1")).Result;
                     if (response == "false")
