@@ -17,6 +17,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using uPLibrary.Networking.M2Mqtt;
 using uPLibrary.Networking.M2Mqtt.Messages;
+using System.Net.Http;
 
 namespace APP_KTRA_ROUTER.Views
 {
@@ -36,6 +37,7 @@ namespace APP_KTRA_ROUTER.Views
         public DateTime tungay = new DateTime();
         public DateTime denngay = new DateTime();
         MqttClient MqClient;
+        public string URL_API = "https://smart.cpc.vn/DSPM_Api/";
         public class MqttRE
         {
             public string active { get; set; }
@@ -158,8 +160,22 @@ namespace APP_KTRA_ROUTER.Views
                             mqttEntry.Text += "Trạng thái khai báo: " + root.ACTIVE.ToString() + Environment.NewLine;
                             mqttEntry.Text += "Trạng thái Modem: " + root.STATUS.ToString() + Environment.NewLine;
                             //mqttEntry.Text += "timeDisconnect: " + root.timeDisconnect.ToString() + Environment.NewLine;
-                            mqttEntry.Text += "Thời gian kết nối gần nhất: " + root.LASTTIMECONNECTED.ToString() + Environment.NewLine;                            
-                            mqttEntry.Text += "CSQ: " + (Int32.Parse(root.CSQ.ToString())/100.0).ToString() + Environment.NewLine;
+                            mqttEntry.Text += "Thời gian kết nối gần nhất: " + root.LASTTIMECONNECTED.ToString() + Environment.NewLine;
+                            mqttEntry.Text += "CSQ: " + (Int32.Parse(root.CSQ.ToString()) / 100.0).ToString() + Environment.NewLine;
+
+                            //lưu log
+                            HISTORY_TRANGTHAI req = new HISTORY_TRANGTHAI();
+                            req.Imei = IMEIText.Text;
+                            req.NguoiKT = Preferences.Get(Config.User, "");
+                            req.TrangThaiKB = root.ACTIVE.ToString();
+                            req.TrangThaiMD = root.STATUS.ToString();
+                            req.LastTimeCN = DateTime.ParseExact(root.LASTTIMECONNECTED.ToString(), "dd/MM/yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+                            req.CSQ = (Int32.Parse(root.CSQ.ToString()) / 100.0).ToString();
+                            req.IPModem = "";
+                            req.IPServer = "";
+                            req.CountCN = "";
+                            HttpContent httpcontent = new StringContent(JsonConvert.SerializeObject(req), Encoding.UTF8, "application/json");
+                            var _json2 = Config.client.PostAsync(URL_API + "api/modem/insertHistoryTrangThai", httpcontent).Result;
                         }
                         else
                         {
@@ -201,6 +217,20 @@ namespace APP_KTRA_ROUTER.Views
                             mqttEntry.Text += "CSQ: " + root.csq.ToString() + Environment.NewLine;
                             mqttEntry.Text += "Số lần mất kết nối: " + root.countConnect.ToString() + Environment.NewLine;
                             mqttEntry.Text += "Ip Server: " + root.ipServer.ToString() + Environment.NewLine;
+
+                            //lưu log
+                            HISTORY_TRANGTHAI req = new HISTORY_TRANGTHAI();
+                            req.Imei = IMEIText.Text;
+                            req.NguoiKT = Preferences.Get(Config.User, "");
+                            req.TrangThaiKB = root.active.ToString();
+                            req.TrangThaiMD = root.status.ToString();
+                            req.LastTimeCN = DateTime.ParseExact(root.timeConnect.ToString(), "dd/MM/yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+                            req.CSQ = root.csq.ToString();
+                            req.IPModem = root.IpModem.ToString();
+                            req.IPServer = root.ipServer.ToString();
+                            req.CountCN = root.countConnect.ToString();
+                            HttpContent httpcontent = new StringContent(JsonConvert.SerializeObject(req), Encoding.UTF8, "application/json");
+                            var _json2 = Config.client.PostAsync(URL_API + "api/modem/insertHistoryTrangThai", httpcontent).Result;
                         }
                         else
                         {
@@ -318,6 +348,14 @@ namespace APP_KTRA_ROUTER.Views
                         if (value.ToUpper().Contains("BUSY"))
                         {
                             mqttEntry.Text = IMEIText.Text + " - Modem đang bận đọc theo tiến trình." + Environment.NewLine;
+                            //lưu log
+                            HISTORY_DOCCTO req = new HISTORY_DOCCTO();
+                            req.Imei = IMEIText.Text;
+                            req.NguoiKT = Preferences.Get(Config.User, "");
+                            req.LoaiDoc = cbLoaiData.SelectedValue.ToString();
+                            req.KetQua = "Modem đang bận đọc theo tiến trình";
+                            HttpContent httpcontent = new StringContent(JsonConvert.SerializeObject(req), Encoding.UTF8, "application/json");
+                            var _json2 = Config.client.PostAsync(URL_API + "api/modem/insertHistoryDocCTo", httpcontent).Result;
                         }
                         if (value.ToUpper().Contains("READ"))
                             mqttEntry.Text = IMEIText.Text + " - Đang thực hiện đọc...Vui lòng đợi..." + Environment.NewLine;
@@ -326,6 +364,14 @@ namespace APP_KTRA_ROUTER.Views
                             if (mqttEntry.Text.Contains(IMEIText.Text + " - Đã hoàn thành đọc."))
                                 return;
                             mqttEntry.Text += IMEIText.Text + " - Đã hoàn thành đọc." + Environment.NewLine;
+                            //lưu log
+                            HISTORY_DOCCTO req = new HISTORY_DOCCTO();
+                            req.Imei = IMEIText.Text;
+                            req.NguoiKT = Preferences.Get(Config.User, "");
+                            req.LoaiDoc = cbLoaiData.SelectedValue.ToString();
+                            req.KetQua = "Đã hoàn thành đọc";
+                            HttpContent httpcontent = new StringContent(JsonConvert.SerializeObject(req), Encoding.UTF8, "application/json");
+                            var _json2 = Config.client.PostAsync(URL_API + "api/modem/insertHistoryDocCTo", httpcontent).Result;
                         }
                     }
                     else

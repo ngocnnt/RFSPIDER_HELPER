@@ -116,4 +116,24 @@ namespace APP_KTRA_ROUTER.Models
         public string DON_VI { get; set; }
         public DateTime NGAY_TẠO { get; set; }
     }
+
+    public class HISTORY_TRANGTHAI
+    {
+        public string Imei { get; set; }
+        public string NguoiKT { get; set; }
+        public string TrangThaiKB { get; set; }
+        public string TrangThaiMD { get; set; }
+        public DateTime LastTimeCN { get; set; }
+        public string CSQ { get; set; }
+        public string IPModem { get; set; }
+        public string IPServer { get; set; }
+        public string CountCN { get; set; }
+    }
+    public class HISTORY_DOCCTO
+    {
+        public string Imei { get; set; }
+        public string NguoiKT { get; set; }
+        public string LoaiDoc { get; set; }
+        public string KetQua { get; set; }
+    }
 }
