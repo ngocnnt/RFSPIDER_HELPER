@@ -138,6 +138,20 @@ namespace APP_KTRA_ROUTER.Views
             //if (ok == Global.DialogReturn.OK)
             {
                 await DependencyService.Get<IProcessLoader>().Show("Vui lòng đợi...");
+
+                var _json3 = Config.client.GetStringAsync(URL_API + "api/modem/getInfoByImei?imei=" + IMEITextMoi.Text).Result;
+                _json3 = _json3.Replace("\\r\\n", "").Replace("\\", "");
+                if (_json3.Contains("[]") == false)
+                {
+                    Int32 from3 = _json3.IndexOf("[");
+                    Int32 to3 = _json3.IndexOf("]");
+                    string result3 = _json3.Substring(from3, to3 - from3 + 1);
+                    var response3 = JsonConvert.DeserializeObject<ObservableCollection<INFO_MODEM>>(result3);
+                    await DependencyService.Get<IProcessLoader>().Hide();
+                    await new MessageBox("Thông Báo", "IMEI " + IMEITextMoi.Text + " đã được khai báo cho mã điểm đo " + response3[0].OBJID + ". Anh/ chị vui lòng kiểm tra lại!").Show();
+                    return;
+                }
+
                 var _json = Config.client.GetStringAsync(URL_API + "api/modem/getInfoByImei?imei=" + IMEITextCu.Text).Result;
                 _json = _json.Replace("\\r\\n", "").Replace("\\", "");
                 if ( _json.Contains("[]") == false)
