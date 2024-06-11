@@ -150,7 +150,7 @@ namespace APP_KTRA_ROUTER.Views
             {
                 await Device.InvokeOnMainThreadAsync(() =>
                 {
-                    if (IMEIText.Text.Substring(0, 2) == "86")
+                    if ((IMEIText.Text.Substring(0, 2) == "86") || (IMEIText.Text.Substring(0, 4) == "3588"))
                     {
                         value = value.Substring(value.IndexOf('{')).Replace("SIM SIGNAL(CSQ)", "CSQ").Replace("LAST TIME CONNECTED", "LASTTIMECONNECTED");
                         var root = JsonConvert.DeserializeObject<MqttRE4G>(value);
