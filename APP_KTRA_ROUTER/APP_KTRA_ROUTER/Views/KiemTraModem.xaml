@@ -31,7 +31,7 @@
                                                HeightRequest="50"
                                                LeadingViewPosition="Inside"
                                                ContainerType="Filled">
-                    <Entry HorizontalOptions="FillAndExpand"   x:Name="IMEIText" Keyboard="Numeric" FontSize="20" FontAttributes="Bold" 
+                    <Entry HorizontalOptions="FillAndExpand" x:Name="IMEIText" Keyboard="Numeric" FontSize="20" FontAttributes="Bold" 
                            Style="{StaticResource styleSearch}"
                            />
 
@@ -56,7 +56,7 @@
                     FontSize="Large"/>
                 </StackLayout>
 
-                <Grid Grid.Row="2" VerticalOptions="Fill" HeightRequest="50" ColumnSpacing="5">
+                <Grid Grid.Row="2" VerticalOptions="Fill" HeightRequest="50" ColumnSpacing="5" IsVisible="false">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*"/>
                         <ColumnDefinition Width="*"/>
@@ -115,15 +115,15 @@
                                >
                     </sfbutton:SfButton>-->
                 </Grid>
-                <StackLayout Grid.Row="3" VerticalOptions="Fill" Padding="10,5,10,5" Margin="20,0,20,10" >
+                <StackLayout Grid.Row="2" VerticalOptions="Fill" Padding="10,5,10,5" Margin="20,0,20,10" >
                     <sfbutton:SfButton Text="Đọc công tơ" x:Name="btnRead"                  
                     BackgroundColor="ForestGreen"                   
                     Clicked="btnRead_ClickedAsync"
                     TextColor="White"
                     FontSize="Large"/>
                 </StackLayout>
-                <StackLayout Grid.Row="4" Margin="15, 5, 10, 0">
-                    <Label x:Name="mqttEntry" LineBreakMode="WordWrap" TextColor="{StaticResource Primary}" FontSize="Medium"/>
+                <StackLayout Grid.Row="3" Margin="15, 5, 10, 0">
+                    <Label x:Name="mqttEntry" LineBreakMode="CharacterWrap" TextColor="{StaticResource Primary}" FontSize="Medium"/>
                 </StackLayout>               
             </Grid>
         </StackLayout>

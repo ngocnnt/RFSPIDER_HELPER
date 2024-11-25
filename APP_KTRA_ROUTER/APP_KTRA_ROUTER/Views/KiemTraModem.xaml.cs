@@ -30,7 +30,8 @@ namespace APP_KTRA_ROUTER.Views
         public string brokerPassword = "evnhes";
         public string baseTopic2 = "HES3G/CHECKSTATUS/IMEI/";
         public string baseTopic1 = "HES3G/RECEIVED/IMEI/";
-        public string baseTopicData = "HES3G/READ/IMEI/";
+        public string baseTopicData = "HES3G/READ/IMEI/"; 
+        public string baseTopicAT = "HES3G/AT/IMEI/";
         public string topic1 = "";
         public string topic2 = "";
         public string topicData = "";
@@ -263,6 +264,7 @@ namespace APP_KTRA_ROUTER.Views
                 await new MessageBox("thông báo", "Số IMEI không đúng định dạng").Show();
                 return;
             }
+            /*
             if (cbLoaiData.Text == null || cbLoaiData.Text == "")
             {
                 await new MessageBox("thông báo", "Vui lòng chọn loại đọc").Show();
@@ -302,6 +304,8 @@ namespace APP_KTRA_ROUTER.Views
                     break;
             }
             message += "'" + tungay.ToString("yyyy-MM-dd") + "','todate':'" + denngay.ToString("yyyy-MM-dd") + "'}";
+            */
+            string message = "at+register?";
             string imei = IMEIText.Text;
             try
             {
@@ -321,7 +325,8 @@ namespace APP_KTRA_ROUTER.Views
                 if (!string.IsNullOrEmpty(imei))
                 {
                     // Concatenate the IMEI to the base topic
-                    topicData = baseTopicData + imei;
+                    //topicData = baseTopicData + imei;
+                    topicData = baseTopicAT + imei;
                     // Now you can use the 'topic2' to publish your MQTT message
                     MqClient.Publish(topicData, Encoding.UTF8.GetBytes(message));
                 }
@@ -330,6 +335,27 @@ namespace APP_KTRA_ROUTER.Views
             catch (Exception ex)
             {
                 await new MessageBox("thông báo", "Lỗi dữ liệu, anh/ chị vui lòng kiểm tra lại!").Show();
+            }
+        }
+        private TaskCompletionSource<bool> tcsResponse;
+
+        private async Task<bool> WaitForResponseOrTimeoutAsync(string imei, int timeout)
+        {
+            tcsResponse = new TaskCompletionSource<bool>();
+
+            // Start a task to wait for the timeout
+            var timeoutTask = Task.Delay(timeout);
+
+            // Wait for either the response or the timeout
+            var completedTask = await Task.WhenAny(tcsResponse.Task, timeoutTask);
+
+            if (completedTask == tcsResponse.Task)
+            {
+                return true; // Response received
+            }
+            else
+            {
+                return false; // Timeout
             }
         }
 
@@ -342,6 +368,7 @@ namespace APP_KTRA_ROUTER.Views
             {
                 await Device.InvokeOnMainThreadAsync(() =>
                 {
+                    /*
                     if (value.Contains(IMEIText.Text))
                     {
 
@@ -381,6 +408,24 @@ namespace APP_KTRA_ROUTER.Views
                             mqttEntry.Text = "Vui lòng kiểm tra lại IMEI hoặc khai báo IMEI trên EVNHES";
                         }
                     }
+                    */
+                    
+                    try
+                    {
+                        if (value.Contains("<<< 02"))
+                        {
+                            int index = value.IndexOf("<<< ");
+                            value = value.Substring(index + 4, value.Length - index - 4); //tru 4 ky tu <<< 
+                            mqttEntry.Text = HexToAscii(value);
+                        }
+                    }
+                    catch (Exception)
+                    {
+                    }
+                    if (value.Contains("<<<")) //neu message co ket qua tra loi lenh at thi moi xac dinh thanh cong
+                    {
+                        tcsResponse?.TrySetResult(true);
+                    }
                 });
             }
 
@@ -388,6 +433,37 @@ namespace APP_KTRA_ROUTER.Views
             {
                 //await new MessageBox("thông báo", ex.Message).Show();
             }
+        }
+        public string HexToAscii(string hexString)
+        {
+            // Kiểm tra nếu chuỗi hex có số ký tự lẻ
+            if (hexString.Length % 2 != 0)
+            {
+                throw new ArgumentException("Input hex string must have an even length.");
+            }
+
+            var asciiString = new StringBuilder();
+
+            for (int i = 0; i < hexString.Length; i += 2)
+            {
+                // Lấy 2 ký tự từ chuỗi hex và chuyển đổi chúng thành byte
+                string hexChar = hexString.Substring(i, 2);
+
+                try
+                {
+                    // Chuyển đổi ký tự hex thành byte
+                    byte byteValue = Convert.ToByte(hexChar, 16);
+
+                    // Chuyển đổi byte thành ký tự ASCII và thêm vào chuỗi kết quả
+                    asciiString.Append((char)byteValue);
+                }
+                catch (FormatException)
+                {
+                    throw new ArgumentException("Input contains non-hex characters.");
+                }
+            }
+
+            return asciiString.ToString();
         }
 
         private void Datepicker_DateSelected(object sender, Syncfusion.XForms.Pickers.DateChangedEventArgs e)
