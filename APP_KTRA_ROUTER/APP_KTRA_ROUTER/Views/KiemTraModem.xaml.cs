@@ -24,7 +24,7 @@ namespace APP_KTRA_ROUTER.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class KiemTraModem : ContentPage
     {
-        public string brokerHost = "222.255.135.216";
+        public string brokerHost = "103.78.6.52";
         public int brokerPort = 9291;
         public string brokerUsername = "evnhes";
         public string brokerPassword = "evnhes";
